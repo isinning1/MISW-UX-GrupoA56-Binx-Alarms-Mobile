@@ -1,0 +1,1 @@
+# MISW-UX-GrupoA56-Binx-Alarms-Mobile
