@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Iniciar sesión</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="onSubmit()">
+    <ion-item lines="none">
+      <ion-input
+        label="Usuario"
+        labelPlacement="stacked"
+        [(ngModel)]="username"
+        name="username"
+        autocomplete="username"
+        required
+      ></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-input
+        label="Contraseña"
+        labelPlacement="stacked"
+        [(ngModel)]="password"
+        name="password"
+        type="password"
+        autocomplete="current-password"
+        required
+      ></ion-input>
+    </ion-item>
+
+    <ion-button type="submit" expand="block" [disabled]="!canSubmit">
+      {{ isSubmitting ? 'Ingresando...' : 'Ingresar' }}
+    </ion-button>
+
+    <ion-button type="button" fill="clear" expand="block">
+      Olvidé mi contraseña
+    </ion-button>
+  </form>
+</ion-content>
