@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Alarmas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item-sliding *ngFor="let alarm of alarms" #sliding>
+      <ion-item button (click)="onOpenAlarm(alarm)">
+        <ion-label>
+          <h2>{{ alarm.title }}</h2>
+          <p>{{ alarm.time }} · {{ alarm.dateLabel }} · {{ alarm.category }}</p>
+          <p>Estado: {{ alarm.status }} {{ alarm.critical ? '· Critical' : '' }}</p>
+        </ion-label>
+
+        <ion-button
+          fill="clear"
+          (click)="$event.stopPropagation(); onEditAlarm(alarm, sliding)"
+        >
+          Edit
+        </ion-button>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="onDeleteAlarm(alarm, sliding)">
+          Delete
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>
