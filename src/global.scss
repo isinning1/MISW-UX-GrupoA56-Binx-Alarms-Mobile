@@ -1,37 +1,1215 @@
 /*
  * App Global CSS
  * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
+ * Estilos globales de la aplicación BINX Mobile (Ionic)
+ * Archivo: src/global.scss
+ *
+ * Objetivo:
+ * - Aplicar el sistema visual global de BINX
+ * - Mantener coherencia entre pantallas
+ * - Mejorar contraste y legibilidad
+ * - Evitar distorsión de iconos
+ * - Dejar una base reusable para layout, cards, botones, inputs y estados
+ *
+ * Importante:
+ * - Usar una sola familia de iconos por pantalla: outline o filled
+ * - No deformar iconos: width = height = font-size
+ * - Los tokens base vienen de src/theme/variables.scss
  */
 
-/* Core CSS required for Ionic components to work properly */
+/* ==========================================================================
+   Core CSS required for Ionic components to work properly
+   ========================================================================== */
 @import "@ionic/angular/css/core.css";
 
-/* Basic CSS for apps built with Ionic */
+/* ==========================================================================
+   Basic CSS for apps built with Ionic
+   ========================================================================== */
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
 @import "@ionic/angular/css/typography.css";
 @import "@ionic/angular/css/display.css";
 
-/* Optional CSS utils that can be commented out */
+/* ==========================================================================
+   Optional CSS utils
+   ========================================================================== */
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
-
+/* ==========================================================================
+   Ionic Dark Mode
+   ========================================================================== */
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+@import "@ionic/angular/css/palettes/dark.system.css";
+
+/* ==========================================================================
+   1. Reset global y base tipográfica
+   ========================================================================== */
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--binx-color-bg);
+  color: var(--binx-color-text);
+  font-family: var(--binx-font-family);
+  font-size: var(--binx-text-body-md);
+  line-height: var(--binx-line-height-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+body {
+  position: relative;
+}
+
+ion-app {
+  background: var(--binx-color-bg);
+  color: var(--binx-color-text);
+  font-family: var(--binx-font-family);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+img {
+  object-fit: contain;
+}
+
+/* Selección de texto */
+::selection {
+  background: rgba(var(--ion-color-primary-rgb), 0.16);
+  color: var(--binx-color-text);
+}
+
+/* Scrollbar discreta para preview en escritorio */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(var(--binx-color-border-strong-rgb), 0.78);
+  border-radius: var(--binx-radius-pill);
+}
+
+/* ==========================================================================
+   2. Safe areas y variables auxiliares
+   ========================================================================== */
+:root {
+  --binx-safe-top: env(safe-area-inset-top);
+  --binx-safe-right: env(safe-area-inset-right);
+  --binx-safe-bottom: env(safe-area-inset-bottom);
+  --binx-safe-left: env(safe-area-inset-left);
+}
+
+/* ==========================================================================
+   3. Base de componentes Ionic
+   ========================================================================== */
+ion-content {
+  --background: var(--binx-color-bg);
+  --color: var(--binx-color-text);
+}
+
+ion-header,
+ion-toolbar {
+  --background: var(--binx-color-bg);
+  --border-color: transparent;
+  --color: var(--binx-color-text);
+  box-shadow: none;
+}
+
+ion-toolbar {
+  min-height: var(--binx-header-height);
+  padding-inline-start: 0;
+  padding-inline-end: 0;
+}
+
+ion-title {
+  color: var(--binx-color-text);
+  font-size: var(--binx-text-title-sm);
+  font-weight: var(--binx-font-weight-bold);
+  letter-spacing: 0;
+}
+
+ion-card {
+  margin: 0;
+  background: var(--binx-color-surface);
+  color: var(--binx-color-text);
+  border-radius: var(--binx-radius-lg);
+  box-shadow: var(--binx-shadow-sm);
+}
+
+ion-list {
+  background: transparent;
+  padding: 0;
+}
+
+ion-item {
+  --background: transparent;
+  --color: var(--binx-color-text);
+  --border-color: transparent;
+  --inner-border-width: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+  --inner-padding-end: 0;
+}
+
+ion-label,
+ion-note,
+ion-text {
+  color: inherit;
+}
+
+ion-note {
+  color: var(--binx-color-text-muted);
+}
+
+ion-icon {
+  color: currentColor;
+}
+
+/* ==========================================================================
+   4. Layout base BINX
+   ========================================================================== */
+.binx-page {
+  position: relative;
+  width: 100%;
+  max-width: var(--binx-page-max-width);
+  min-height: 100%;
+  margin: 0 auto;
+  padding-top: calc(var(--binx-safe-top) + var(--binx-page-padding-y));
+  padding-right: calc(var(--binx-page-padding-x) + var(--binx-safe-right));
+  padding-bottom: calc(var(--binx-safe-bottom) + var(--binx-page-padding-y));
+  padding-left: calc(var(--binx-page-padding-x) + var(--binx-safe-left));
+  display: flex;
+  flex-direction: column;
+  gap: var(--binx-space-6);
+}
+
+.binx-page--centered {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.binx-page--compact {
+  gap: var(--binx-space-4);
+}
+
+.binx-page--with-tabbar {
+  padding-bottom: calc(var(--binx-safe-bottom) + var(--binx-tabbar-height) + 24px);
+}
+
+.binx-container {
+  width: 100%;
+  max-width: var(--binx-page-max-width);
+  margin: 0 auto;
+}
+
+.binx-safe-top {
+  padding-top: calc(var(--binx-safe-top) + 8px);
+}
+
+.binx-safe-bottom {
+  padding-bottom: calc(var(--binx-safe-bottom) + 8px);
+}
+
+/* ==========================================================================
+   5. Tipografía reusable
+   ========================================================================== */
+.binx-text-display {
+  margin: 0;
+  color: var(--binx-color-text);
+  font-size: var(--binx-text-display);
+  font-weight: var(--binx-font-weight-extrabold);
+  line-height: var(--binx-line-height-tight);
+}
+
+.binx-title-hero {
+  margin: 0;
+  color: var(--binx-color-text);
+  font-size: var(--binx-text-title-hero);
+  font-weight: var(--binx-font-weight-extrabold);
+  line-height: var(--binx-line-height-tight);
+}
+
+.binx-section-title {
+  margin: 0;
+  color: var(--binx-color-text);
+  font-size: var(--binx-text-title-lg);
+  font-weight: var(--binx-font-weight-bold);
+  line-height: var(--binx-line-height-snug);
+}
+
+.binx-section-title--sm {
+  font-size: var(--binx-text-title-md);
+}
+
+.binx-section-subtitle {
+  margin: 0;
+  color: var(--binx-color-text-soft);
+  font-size: var(--binx-text-body-md);
+  font-weight: var(--binx-font-weight-regular);
+  line-height: var(--binx-line-height-normal);
+}
+
+.binx-caption {
+  margin: 0;
+  color: var(--binx-color-text-muted);
+  font-size: var(--binx-text-caption);
+  line-height: var(--binx-line-height-normal);
+}
+
+.binx-text-muted {
+  color: var(--binx-color-text-muted);
+}
+
+.binx-text-soft {
+  color: var(--binx-color-text-soft);
+}
+
+.binx-text-primary {
+  color: var(--ion-color-primary);
+}
+
+.binx-text-success {
+  color: var(--ion-color-success);
+}
+
+.binx-text-warning {
+  color: #9a6700;
+}
+
+.binx-text-danger {
+  color: var(--ion-color-danger);
+}
+
+.binx-text-center {
+  text-align: center;
+}
+
+.binx-text-left {
+  text-align: left;
+}
+
+.binx-text-right {
+  text-align: right;
+}
+
+/* ==========================================================================
+   6. Header / topbar reusable
+   ========================================================================== */
+.binx-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--binx-space-3);
+  min-height: var(--binx-header-height);
+}
+
+.binx-header__start,
+.binx-header__center,
+.binx-header__end {
+  display: flex;
+  align-items: center;
+  gap: var(--binx-space-2);
+}
+
+.binx-header__center {
+  flex: 1;
+  min-width: 0;
+}
+
+.binx-header__title {
+  margin: 0;
+  color: var(--binx-color-text);
+  font-size: var(--binx-text-title-sm);
+  font-weight: var(--binx-font-weight-bold);
+  line-height: var(--binx-line-height-snug);
+}
+
+.binx-header__subtitle {
+  margin: 2px 0 0;
+  color: var(--binx-color-text-soft);
+  font-size: var(--binx-text-body-sm);
+  line-height: var(--binx-line-height-normal);
+}
+
+.binx-back-button {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--binx-radius-round);
+  border: 1px solid var(--binx-color-border);
+  background: var(--binx-color-surface);
+  color: var(--binx-color-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--binx-shadow-xs);
+  padding: 0;
+}
+
+/* ==========================================================================
+   7. Layout helpers
+   ========================================================================== */
+.binx-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--binx-space-4);
+}
+
+.binx-stack--xs {
+  gap: var(--binx-space-1);
+}
+
+.binx-stack--sm {
+  gap: var(--binx-space-2);
+}
+
+.binx-stack--md {
+  gap: var(--binx-space-4);
+}
+
+.binx-stack--lg {
+  gap: var(--binx-space-6);
+}
+
+.binx-stack--xl {
+  gap: var(--binx-space-8);
+}
+
+.binx-row {
+  display: flex;
+  align-items: center;
+  gap: var(--binx-space-3);
+}
+
+.binx-row--start {
+  justify-content: flex-start;
+}
+
+.binx-row--center {
+  justify-content: center;
+}
+
+.binx-row--between {
+  justify-content: space-between;
+}
+
+.binx-row--end {
+  justify-content: flex-end;
+}
+
+.binx-wrap {
+  flex-wrap: wrap;
+}
+
+.binx-spacer {
+  flex: 1 1 auto;
+}
+
+.binx-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--binx-color-border);
+}
+
+.binx-divider--soft {
+  background: rgba(var(--binx-color-border-rgb), 0.55);
+}
+
+/* ==========================================================================
+   8. Cards y superficies
+   ========================================================================== */
+.binx-card {
+  width: 100%;
+  background: var(--binx-color-surface);
+  border: 1px solid var(--binx-color-border);
+  border-radius: var(--binx-radius-lg);
+  box-shadow: var(--binx-shadow-sm);
+  padding: var(--binx-space-5);
+  color: var(--binx-color-text);
+}
+
+.binx-card--soft {
+  background: var(--binx-color-surface-soft);
+  border-color: transparent;
+}
+
+.binx-card--muted {
+  background: var(--binx-color-surface-muted);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.binx-card--elevated {
+  box-shadow: var(--binx-shadow-md);
+}
+
+.binx-card--centered {
+  text-align: center;
+}
+
+.binx-panel {
+  width: 100%;
+  border-radius: var(--binx-radius-md);
+  background: var(--binx-color-surface);
+  border: 1px solid var(--binx-color-border);
+  padding: var(--binx-space-4);
+}
+
+/* ==========================================================================
+   9. Botones
+   ========================================================================== */
+button {
+  font-family: inherit;
+}
+
+.binx-button {
+  appearance: none;
+  width: 100%;
+  min-height: var(--binx-button-height-lg);
+  border-radius: var(--binx-radius-sm);
+  border: 1px solid transparent;
+  padding: 0 18px;
+  background: var(--binx-color-surface);
+  color: var(--binx-color-text);
+  font-size: var(--binx-text-body-sm);
+  font-weight: var(--binx-font-weight-semibold);
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: none;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    opacity 0.18s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.binx-button:hover {
+  transform: translateY(-1px);
+}
+
+.binx-button:active {
+  transform: translateY(0);
+}
+
+.binx-button:focus-visible {
+  outline: none;
+  box-shadow: var(--binx-focus-ring);
+}
+
+.binx-button:disabled,
+.binx-button[disabled] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none;
+}
+
+.binx-button--primary {
+  background: var(--ion-color-primary);
+  color: var(--ion-color-primary-contrast);
+  border-color: var(--ion-color-primary);
+}
+
+.binx-button--primary:hover {
+  background: var(--ion-color-primary-shade);
+  border-color: var(--ion-color-primary-shade);
+}
+
+.binx-button--secondary {
+  background: var(--binx-color-surface);
+  color: var(--ion-color-primary);
+  border-color: var(--ion-color-primary);
+}
+
+.binx-button--secondary:hover {
+  background: rgba(var(--ion-color-primary-rgb), 0.06);
+}
+
+.binx-button--ghost {
+  background: transparent;
+  color: var(--ion-color-primary);
+  border-color: transparent;
+}
+
+.binx-button--ghost:hover {
+  background: rgba(var(--ion-color-primary-rgb), 0.08);
+}
+
+.binx-button--text {
+  width: auto;
+  min-height: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ion-color-primary);
+  font-weight: var(--binx-font-weight-medium);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.binx-button--text:hover {
+  background: transparent;
+  transform: none;
+}
+
+.binx-button--success {
+  background: var(--ion-color-success);
+  color: var(--ion-color-success-contrast);
+  border-color: var(--ion-color-success);
+}
+
+.binx-button--success:focus-visible {
+  box-shadow: var(--binx-focus-ring-success);
+}
+
+.binx-button--warning {
+  background: var(--ion-color-warning);
+  color: #1f2937;
+  border-color: var(--ion-color-warning);
+}
+
+.binx-button--danger {
+  background: var(--ion-color-danger);
+  color: var(--ion-color-danger-contrast);
+  border-color: var(--ion-color-danger);
+}
+
+.binx-button--danger:focus-visible {
+  box-shadow: var(--binx-focus-ring-danger);
+}
+
+.binx-button--muted {
+  background: #d1d5db;
+  color: #ffffff;
+  border-color: #d1d5db;
+}
+
+.binx-button--sm {
+  min-height: 40px;
+  padding: 0 14px;
+  font-size: var(--binx-text-caption);
+}
+
+.binx-button--lg {
+  min-height: 56px;
+  font-size: var(--binx-text-body-md);
+}
+
+.binx-button--block {
+  width: 100%;
+}
+
+.binx-button-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--binx-space-3);
+}
+
+/* ==========================================================================
+   10. Iconos
+   ========================================================================== */
+/*
+ * Para cumplir el feedback:
+ * - no distorsionar dimensiones
+ * - usar proporción fija
+ * - usar un solo estilo visual por pantalla
+ */
+.binx-icon {
+  width: var(--binx-icon-size-lg);
+  height: var(--binx-icon-size-lg);
+  font-size: var(--binx-icon-size-lg);
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.binx-icon--sm {
+  width: var(--binx-icon-size-sm);
+  height: var(--binx-icon-size-sm);
+  font-size: var(--binx-icon-size-sm);
+}
+
+.binx-icon--md {
+  width: var(--binx-icon-size-lg);
+  height: var(--binx-icon-size-lg);
+  font-size: var(--binx-icon-size-lg);
+}
+
+.binx-icon--lg {
+  width: var(--binx-icon-size-xl);
+  height: var(--binx-icon-size-xl);
+  font-size: var(--binx-icon-size-xl);
+}
+
+.binx-icon--xl {
+  width: var(--binx-icon-size-2xl);
+  height: var(--binx-icon-size-2xl);
+  font-size: var(--binx-icon-size-2xl);
+}
+
+.binx-icon-button {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--binx-radius-round);
+  border: 1px solid transparent;
+  background: rgba(var(--binx-color-surface-rgb), 0.92);
+  color: var(--binx-color-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-shadow: var(--binx-shadow-xs);
+}
+
+.binx-icon-button--outlined {
+  border-color: var(--binx-color-border);
+  background: var(--binx-color-surface);
+}
+
+.binx-icon-button--primary {
+  background: var(--ion-color-primary);
+  color: var(--ion-color-primary-contrast);
+  border-color: var(--ion-color-primary);
+}
+
+.binx-icon-button--danger {
+  background: var(--ion-color-danger);
+  color: var(--ion-color-danger-contrast);
+  border-color: var(--ion-color-danger);
+}
+
+.binx-icon-button:focus-visible {
+  outline: none;
+  box-shadow: var(--binx-focus-ring);
+}
+
+/* ==========================================================================
+   11. Chips / badges
+   ========================================================================== */
+.binx-chip {
+  min-height: var(--binx-chip-height);
+  padding: 0 var(--binx-chip-padding-x);
+  border-radius: var(--binx-radius-pill);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: var(--binx-chip-font-size);
+  font-weight: var(--binx-chip-font-weight);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.binx-chip--primary {
+  background: rgba(var(--ion-color-primary-rgb), 0.12);
+  color: var(--ion-color-primary);
+}
+
+.binx-chip--success {
+  background: var(--binx-alarm-attended-soft);
+  color: var(--ion-color-success);
+}
+
+.binx-chip--warning {
+  background: var(--binx-alarm-pending-soft);
+  color: #9a6700;
+}
+
+.binx-chip--danger {
+  background: var(--binx-alarm-critical-soft);
+  color: var(--binx-alarm-critical);
+}
+
+.binx-chip--neutral {
+  background: rgba(var(--binx-color-border-rgb), 0.2);
+  color: var(--binx-color-text-soft);
+}
+
+/* ==========================================================================
+   12. Formularios
+   ========================================================================== */
+input,
+textarea,
+select,
+button {
+  font: inherit;
+}
+
+.binx-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--binx-space-4);
+}
+
+.binx-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--binx-space-2);
+}
+
+.binx-label {
+  margin: 0;
+  color: var(--binx-color-text-soft);
+  font-size: var(--binx-text-body-sm);
+  font-weight: var(--binx-font-weight-medium);
+  line-height: var(--binx-line-height-snug);
+}
+
+.binx-input,
+.binx-textarea,
+.binx-select {
+  width: 100%;
+  min-height: var(--binx-input-height);
+  border-radius: var(--binx-radius-sm);
+  border: 1px solid var(--binx-input-border);
+  background: var(--binx-input-bg);
+  color: var(--binx-input-text);
+  padding: 10px 14px;
+  font-size: var(--binx-text-body-sm);
+  font-weight: var(--binx-font-weight-regular);
+  line-height: var(--binx-line-height-normal);
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.binx-textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.binx-input::placeholder,
+.binx-textarea::placeholder {
+  color: var(--binx-input-placeholder);
+  opacity: 1;
+}
+
+.binx-input:hover,
+.binx-textarea:hover,
+.binx-select:hover {
+  border-color: var(--binx-input-border-hover);
+}
+
+.binx-input:focus,
+.binx-textarea:focus,
+.binx-select:focus {
+  outline: none;
+  border-color: var(--binx-input-border-focus);
+  box-shadow: var(--binx-focus-ring);
+}
+
+.binx-input:disabled,
+.binx-textarea:disabled,
+.binx-select:disabled {
+  background: var(--binx-input-disabled-bg);
+  color: var(--binx-input-disabled-text);
+  border-color: transparent;
+  cursor: not-allowed;
+}
+
+.binx-input--error,
+.binx-textarea--error,
+.binx-select--error {
+  border-color: var(--binx-input-border-error);
+}
+
+.binx-input--error:focus,
+.binx-textarea--error:focus,
+.binx-select--error:focus {
+  box-shadow: var(--binx-focus-ring-danger);
+}
+
+.binx-helper-text {
+  margin: 0;
+  color: var(--binx-color-text-muted);
+  font-size: var(--binx-text-caption);
+  line-height: var(--binx-line-height-normal);
+}
+
+.binx-helper-text--error {
+  color: var(--ion-color-danger);
+}
+
+.binx-field-inline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--binx-space-4);
+}
+
+/* ==========================================================================
+   13. Inputs Ionic / datetime / searchbar / toggles
+   ========================================================================== */
+ion-input,
+ion-textarea,
+ion-select,
+ion-searchbar {
+  --color: var(--binx-color-text);
+  --placeholder-color: var(--binx-color-placeholder);
+}
+
+ion-searchbar {
+  --background: var(--binx-color-surface);
+  --border-radius: var(--binx-radius-pill);
+  --box-shadow: none;
+  --cancel-button-color: var(--ion-color-primary);
+  --clear-button-color: var(--binx-color-text-muted);
+  --icon-color: var(--binx-color-text-muted);
+  padding: 0;
+}
+
+ion-searchbar.searchbar-has-focus {
+  --box-shadow: var(--binx-focus-ring);
+}
+
+ion-toggle {
+  --handle-background: #ffffff;
+  --handle-background-checked: #ffffff;
+  --track-background: #9ca3af;
+  --track-background-checked: #22c55e;
+  --border-radius: var(--binx-radius-pill);
+}
+
+ion-datetime {
+  --background: var(--binx-color-surface);
+  --background-rgb: var(--binx-color-surface-rgb);
+  --title-color: var(--binx-color-text);
+  --wheel-highlight-background: rgba(var(--ion-color-primary-rgb), 0.08);
+  --wheel-fade-background-rgb: var(--binx-color-surface-rgb);
+  border-radius: var(--binx-radius-lg);
+}
+
+ion-datetime-button::part(native) {
+  background: var(--binx-color-surface);
+  color: var(--binx-color-text);
+  border: 1px solid var(--binx-color-border);
+  border-radius: var(--binx-radius-sm);
+  min-height: var(--binx-input-height);
+  padding: 0 14px;
+  font-size: var(--binx-text-body-sm);
+  font-weight: var(--binx-font-weight-medium);
+  box-shadow: none;
+}
+
+ion-modal {
+  --background: transparent;
+  --box-shadow: none;
+}
+
+ion-modal::part(content) {
+  border-radius: var(--binx-modal-radius);
+  background: var(--binx-modal-bg);
+}
+
+ion-backdrop {
+  --backdrop-opacity: 1;
+  background: var(--binx-overlay-backdrop);
+}
+
+/* ==========================================================================
+   14. Tab bar y acciones inferiores
+   ========================================================================== */
+ion-tab-bar {
+  --background: rgba(var(--binx-color-surface-rgb), 0.94);
+  --border: 0;
+  --color: var(--binx-color-text-muted);
+  --color-selected: var(--ion-color-primary);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 -4px 18px rgba(15, 23, 42, 0.08);
+  height: calc(var(--binx-tabbar-height) + var(--binx-safe-bottom));
+  padding-bottom: var(--binx-safe-bottom);
+  padding-top: 6px;
+}
+
+ion-tab-button {
+  --color: var(--binx-color-text-muted);
+  --color-selected: var(--ion-color-primary);
+  --padding-top: 6px;
+  --padding-bottom: 6px;
+  min-height: 56px;
+  font-size: var(--binx-text-caption);
+}
+
+.binx-bottom-actions {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  margin-top: auto;
+  padding-top: var(--binx-space-4);
+  padding-bottom: calc(var(--binx-safe-bottom) + 8px);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(var(--binx-color-bg-rgb), 0) 0%,
+      rgba(var(--binx-color-bg-rgb), 0.88) 18%,
+      rgba(var(--binx-color-bg-rgb), 1) 100%
+    );
+}
+
+/* ==========================================================================
+   15. FAB / acción flotante
+   ========================================================================== */
+.binx-fab {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--binx-safe-bottom) + 16px);
+  transform: translateX(-50%);
+  width: calc(100% - 40px);
+  max-width: calc(var(--binx-page-max-width) - 40px);
+  z-index: 20;
+}
+
+.binx-fab .binx-button {
+  box-shadow: var(--binx-shadow-md);
+}
+
+/* ==========================================================================
+   16. Estados de alarma
+   ========================================================================== */
+.binx-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--binx-text-caption);
+  font-weight: var(--binx-font-weight-semibold);
+  line-height: 1.2;
+}
+
+.binx-status--critical {
+  color: var(--binx-alarm-critical);
+}
+
+.binx-status--pending {
+  color: #b45309;
+}
+
+.binx-status--attended {
+  color: var(--ion-color-success);
+}
+
+.binx-status--postponed {
+  color: var(--ion-color-primary);
+}
+
+.binx-status--reprogrammed {
+  color: #9a6700;
+}
+
+/* ==========================================================================
+   17. Utilidades visuales
+   ========================================================================== */
+.binx-bg-surface {
+  background: var(--binx-color-surface);
+}
+
+.binx-bg-soft {
+  background: var(--binx-color-surface-soft);
+}
+
+.binx-bg-muted {
+  background: var(--binx-color-surface-muted);
+}
+
+.binx-border {
+  border: 1px solid var(--binx-color-border);
+}
+
+.binx-shadow-sm {
+  box-shadow: var(--binx-shadow-sm);
+}
+
+.binx-shadow-md {
+  box-shadow: var(--binx-shadow-md);
+}
+
+.binx-rounded-sm {
+  border-radius: var(--binx-radius-sm);
+}
+
+.binx-rounded-md {
+  border-radius: var(--binx-radius-md);
+}
+
+.binx-rounded-lg {
+  border-radius: var(--binx-radius-lg);
+}
+
+.binx-rounded-pill {
+  border-radius: var(--binx-radius-pill);
+}
+
+/* ==========================================================================
+   18. Utilidades de display y tamaño
+   ========================================================================== */
+.w-100 {
+  width: 100%;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.d-block {
+  display: block;
+}
+
+.d-inline-flex {
+  display: inline-flex;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+/* ==========================================================================
+   19. Utilidades de espaciado
+   ========================================================================== */
+.mt-0 { margin-top: 0 !important; }
+.mt-1 { margin-top: var(--binx-space-1) !important; }
+.mt-2 { margin-top: var(--binx-space-2) !important; }
+.mt-3 { margin-top: var(--binx-space-3) !important; }
+.mt-4 { margin-top: var(--binx-space-4) !important; }
+.mt-5 { margin-top: var(--binx-space-5) !important; }
+.mt-6 { margin-top: var(--binx-space-6) !important; }
+
+.mb-0 { margin-bottom: 0 !important; }
+.mb-1 { margin-bottom: var(--binx-space-1) !important; }
+.mb-2 { margin-bottom: var(--binx-space-2) !important; }
+.mb-3 { margin-bottom: var(--binx-space-3) !important; }
+.mb-4 { margin-bottom: var(--binx-space-4) !important; }
+.mb-5 { margin-bottom: var(--binx-space-5) !important; }
+.mb-6 { margin-bottom: var(--binx-space-6) !important; }
+
+.pt-0 { padding-top: 0 !important; }
+.pt-1 { padding-top: var(--binx-space-1) !important; }
+.pt-2 { padding-top: var(--binx-space-2) !important; }
+.pt-3 { padding-top: var(--binx-space-3) !important; }
+.pt-4 { padding-top: var(--binx-space-4) !important; }
+.pt-5 { padding-top: var(--binx-space-5) !important; }
+.pt-6 { padding-top: var(--binx-space-6) !important; }
+
+.pb-0 { padding-bottom: 0 !important; }
+.pb-1 { padding-bottom: var(--binx-space-1) !important; }
+.pb-2 { padding-bottom: var(--binx-space-2) !important; }
+.pb-3 { padding-bottom: var(--binx-space-3) !important; }
+.pb-4 { padding-bottom: var(--binx-space-4) !important; }
+.pb-5 { padding-bottom: var(--binx-space-5) !important; }
+.pb-6 { padding-bottom: var(--binx-space-6) !important; }
+
+/* ==========================================================================
+   20. Animaciones suaves
+   ========================================================================== */
+@keyframes binx-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes binx-pulse-soft {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--ion-color-primary-rgb), 0.22);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(var(--ion-color-primary-rgb), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--ion-color-primary-rgb), 0);
+  }
+}
+
+.binx-animate-fade-in {
+  animation: binx-fade-in 0.24s ease both;
+}
+
+.binx-animate-pulse {
+  animation: binx-pulse-soft 2s infinite;
+}
+
+/* ==========================================================================
+   21. Accesibilidad y reducción de movimiento
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   22. Ajustes responsive para preview
+   ========================================================================== */
+@media (min-width: 768px) {
+  .binx-page {
+    min-height: 100dvh;
+  }
+}

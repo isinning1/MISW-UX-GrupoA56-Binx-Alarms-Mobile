@@ -1,2 +1,518 @@
 // For information on how to create your own theme, please refer to:
 // https://ionicframework.com/docs/theming/
+
+/*
+ * BINX Mobile Design Tokens
+ * Archivo base de tema para Ionic
+ * Ubicación: src/theme/variables.scss
+ *
+ * Objetivo:
+ * - Unificar la paleta principal azul estilo Bootstrap / Ionic
+ * - Mejorar contraste visual
+ * - Centralizar colores, radios, sombras, spacing y tipografía
+ * - Dejar una base mantenible para todas las pantallas mobile
+ *
+ * Nota:
+ * - Este archivo define TOKENS.
+ * - La aplicación concreta de tamaños de íconos, botones, cards, inputs,
+ *   headers y layout debe hacerse en global.scss y en los .page.scss.
+ * - Para cumplir la observación de la tutora sobre íconos:
+ *   se recomienda usar una sola familia visual (outline o filled), no mezclarlas.
+ *   En mobile, además, no se deben deformar con width/height desproporcionados.
+ */
+
+/** Ionic CSS Variables **/
+:root {
+  /* =========================================================
+   * 1) BRAND CORE
+   * ========================================================= */
+
+  /**
+   * Azul principal BINX
+   * Elegido con suficiente contraste sobre blanco y superficies claras.
+   * Mantiene una línea cercana a Bootstrap primary / Ionic primary.
+   */
+  --ion-color-primary: #0d6efd;
+  --ion-color-primary-rgb: 13, 110, 253;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #0b61df;
+  --ion-color-primary-tint: #257dfd;
+
+  /**
+   * Azul secundario de apoyo:
+   * útil para chips suaves, fondos informativos y estados no críticos.
+   */
+  --ion-color-secondary: #dbeafe;
+  --ion-color-secondary-rgb: 219, 234, 254;
+  --ion-color-secondary-contrast: #0f172a;
+  --ion-color-secondary-contrast-rgb: 15, 23, 42;
+  --ion-color-secondary-shade: #c1cedf;
+  --ion-color-secondary-tint: #e0edfe;
+
+  /**
+   * Azul intermedio / apoyo de UI.
+   */
+  --ion-color-tertiary: #5b9cff;
+  --ion-color-tertiary-rgb: 91, 156, 255;
+  --ion-color-tertiary-contrast: #ffffff;
+  --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+  --ion-color-tertiary-shade: #5089e0;
+  --ion-color-tertiary-tint: #6ba5ff;
+
+  /* =========================================================
+   * 2) SEMANTIC / STATUS COLORS
+   * ========================================================= */
+
+  /**
+   * Éxito / atendida
+   * Verde suficientemente saturado y visible.
+   */
+  --ion-color-success: #16a34a;
+  --ion-color-success-rgb: 22, 163, 74;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #138f42;
+  --ion-color-success-tint: #2dad5c;
+
+  /**
+   * Warning / pendiente / reprogramación cauta
+   */
+  --ion-color-warning: #f4b400;
+  --ion-color-warning-rgb: 244, 180, 0;
+  --ion-color-warning-contrast: #1f2937;
+  --ion-color-warning-contrast-rgb: 31, 41, 55;
+  --ion-color-warning-shade: #d79e00;
+  --ion-color-warning-tint: #f5bc1a;
+
+  /**
+   * Danger / crítica / posponer / alerta roja
+   */
+  --ion-color-danger: #e11d48;
+  --ion-color-danger-rgb: 225, 29, 72;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #c71a3f;
+  --ion-color-danger-tint: #e4365c;
+
+  /**
+   * Información / apoyo / banners no críticos
+   */
+  --ion-color-info: #0ea5e9;
+  --ion-color-info-rgb: 14, 165, 233;
+  --ion-color-info-contrast: #ffffff;
+  --ion-color-info-contrast-rgb: 255, 255, 255;
+  --ion-color-info-shade: #0c91cd;
+  --ion-color-info-tint: #26adeb;
+
+  /* =========================================================
+   * 3) NEUTRALS / SURFACES
+   * ========================================================= */
+
+  /**
+   * Fondo general visto en mockups: gris claro limpio.
+   * Se deja un poco más definido para evitar sensación lavada.
+   */
+  --binx-color-bg: #f2f4f7;
+  --binx-color-bg-rgb: 242, 244, 247;
+
+  /**
+   * Superficie principal: cards, contenedores, modales, paneles.
+   */
+  --binx-color-surface: #ffffff;
+  --binx-color-surface-rgb: 255, 255, 255;
+
+  /**
+   * Superficie suave azulada para paneles secundarios.
+   */
+  --binx-color-surface-soft: #eff6ff;
+  --binx-color-surface-soft-rgb: 239, 246, 255;
+
+  /**
+   * Superficie deshabilitada o plana.
+   */
+  --binx-color-surface-muted: #e5e7eb;
+  --binx-color-surface-muted-rgb: 229, 231, 235;
+
+  /**
+   * Bordes:
+   * más oscuros que en una UI "demasiado suave", para cumplir
+   * con la observación de contraste.
+   */
+  --binx-color-border: #cbd5e1;
+  --binx-color-border-rgb: 203, 213, 225;
+
+  --binx-color-border-strong: #94a3b8;
+  --binx-color-border-strong-rgb: 148, 163, 184;
+
+  /* =========================================================
+   * 4) TEXT COLORS
+   * ========================================================= */
+
+  /**
+   * Texto principal: oscuro, alta legibilidad.
+   */
+  --binx-color-text: #111827;
+  --binx-color-text-rgb: 17, 24, 39;
+
+  /**
+   * Texto secundario: aún con buen contraste.
+   */
+  --binx-color-text-soft: #374151;
+  --binx-color-text-soft-rgb: 55, 65, 81;
+
+  /**
+   * Texto terciario / helper / placeholder con mejor contraste
+   * que un gris demasiado tenue.
+   */
+  --binx-color-text-muted: #6b7280;
+  --binx-color-text-muted-rgb: 107, 114, 128;
+
+  /**
+   * Texto sobre superficies oscuras o botones primarios.
+   */
+  --binx-color-text-inverse: #ffffff;
+  --binx-color-text-inverse-rgb: 255, 255, 255;
+
+  /**
+   * Placeholder más visible, sin perder jerarquía.
+   */
+  --binx-color-placeholder: #9ca3af;
+  --binx-color-placeholder-rgb: 156, 163, 175;
+
+  /* =========================================================
+   * 5) ALERT / ALARM TOKENS
+   * ========================================================= */
+
+  /**
+   * Tokens semánticos propios del producto BINX
+   * para alarmas y estados del flujo.
+   */
+
+  --binx-alarm-critical: #ff1f3d;
+  --binx-alarm-critical-rgb: 255, 31, 61;
+
+  --binx-alarm-pending: #f59e0b;
+  --binx-alarm-pending-rgb: 245, 158, 11;
+
+  --binx-alarm-attended: #16a34a;
+  --binx-alarm-attended-rgb: 22, 163, 74;
+
+  --binx-alarm-postponed: #0d6efd;
+  --binx-alarm-postponed-rgb: 13, 110, 253;
+
+  --binx-alarm-reprogrammed: #f4b400;
+  --binx-alarm-reprogrammed-rgb: 244, 180, 0;
+
+  /**
+   * Fondos suaves para badges/chips
+   */
+  --binx-alarm-critical-soft: rgba(255, 31, 61, 0.12);
+  --binx-alarm-pending-soft: rgba(245, 158, 11, 0.14);
+  --binx-alarm-attended-soft: rgba(22, 163, 74, 0.14);
+  --binx-alarm-postponed-soft: rgba(13, 110, 253, 0.12);
+  --binx-alarm-reprogrammed-soft: rgba(244, 180, 0, 0.18);
+
+  /* =========================================================
+   * 6) TYPOGRAPHY
+   * ========================================================= */
+
+  /**
+   * Familia recomendada:
+   * - Inter si está disponible
+   * - fallback a system fonts móviles
+   */
+  --binx-font-family: "Inter", "SF Pro Display", "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+
+  /**
+   * Tamaños base
+   */
+  --binx-font-size-2xs: 11px;
+  --binx-font-size-xs: 12px;
+  --binx-font-size-sm: 14px;
+  --binx-font-size-md: 16px;
+  --binx-font-size-lg: 18px;
+  --binx-font-size-xl: 20px;
+  --binx-font-size-2xl: 24px;
+  --binx-font-size-3xl: 32px;
+  --binx-font-size-4xl: 48px;
+  --binx-font-size-5xl: 64px;
+
+  /**
+   * Pesos
+   */
+  --binx-font-weight-regular: 400;
+  --binx-font-weight-medium: 500;
+  --binx-font-weight-semibold: 600;
+  --binx-font-weight-bold: 700;
+  --binx-font-weight-extrabold: 800;
+
+  /**
+   * Alturas de línea
+   */
+  --binx-line-height-tight: 1.15;
+  --binx-line-height-snug: 1.25;
+  --binx-line-height-normal: 1.5;
+  --binx-line-height-relaxed: 1.65;
+
+  /**
+   * Tokens semánticos tipográficos
+   */
+  --binx-text-display: var(--binx-font-size-5xl);
+  --binx-text-title-hero: var(--binx-font-size-4xl);
+  --binx-text-title-xl: var(--binx-font-size-3xl);
+  --binx-text-title-lg: var(--binx-font-size-2xl);
+  --binx-text-title-md: var(--binx-font-size-xl);
+  --binx-text-title-sm: var(--binx-font-size-lg);
+
+  --binx-text-body-lg: var(--binx-font-size-lg);
+  --binx-text-body-md: var(--binx-font-size-md);
+  --binx-text-body-sm: var(--binx-font-size-sm);
+  --binx-text-caption: var(--binx-font-size-xs);
+
+  /* =========================================================
+   * 7) SPACING SCALE
+   * ========================================================= */
+
+  --binx-space-0: 0;
+  --binx-space-1: 4px;
+  --binx-space-2: 8px;
+  --binx-space-3: 12px;
+  --binx-space-4: 16px;
+  --binx-space-5: 20px;
+  --binx-space-6: 24px;
+  --binx-space-7: 28px;
+  --binx-space-8: 32px;
+  --binx-space-9: 36px;
+  --binx-space-10: 40px;
+  --binx-space-12: 48px;
+  --binx-space-14: 56px;
+  --binx-space-16: 64px;
+
+  /* =========================================================
+   * 8) BORDER RADIUS
+   * ========================================================= */
+
+  /**
+   * Se dejan radios moderados y consistentes.
+   * No demasiado agresivos para que no se vea infantil,
+   * pero sí suficientemente suaves para mobile.
+   */
+  --binx-radius-xs: 6px;
+  --binx-radius-sm: 10px;
+  --binx-radius-md: 14px;
+  --binx-radius-lg: 18px;
+  --binx-radius-xl: 24px;
+  --binx-radius-2xl: 32px;
+  --binx-radius-pill: 999px;
+  --binx-radius-round: 50%;
+
+  /* =========================================================
+   * 9) SHADOWS
+   * ========================================================= */
+
+  /**
+   * Sombras suaves y limpias, compatibles con UI mobile.
+   * Se evita una sombra negra pesada.
+   */
+  --binx-shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --binx-shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.08);
+  --binx-shadow-md: 0 8px 20px rgba(15, 23, 42, 0.10);
+  --binx-shadow-lg: 0 16px 32px rgba(15, 23, 42, 0.14);
+
+  /**
+   * Glow suave de foco para primary.
+   */
+  --binx-focus-ring: 0 0 0 4px rgba(13, 110, 253, 0.16);
+  --binx-focus-ring-danger: 0 0 0 4px rgba(225, 29, 72, 0.14);
+  --binx-focus-ring-success: 0 0 0 4px rgba(22, 163, 74, 0.14);
+
+  /* =========================================================
+   * 10) LAYOUT TOKENS
+   * ========================================================= */
+
+  /**
+   * Ancho máximo mobile centrado.
+   * Útil para mantener consistencia visual en preview y escritorio.
+   */
+  --binx-page-max-width: 430px;
+
+  /**
+   * Padding base horizontal y vertical.
+   */
+  --binx-page-padding-x: 20px;
+  --binx-page-padding-y: 20px;
+
+  /**
+   * Alturas estándar
+   */
+  --binx-header-height: 56px;
+  --binx-button-height: 48px;
+  --binx-button-height-lg: 52px;
+  --binx-input-height: 44px;
+  --binx-tabbar-height: 64px;
+
+  /* =========================================================
+   * 11) ICON TOKENS
+   * ========================================================= */
+
+  /**
+   * Importante:
+   * - Estos tamaños son de referencia.
+   * - No se deben alterar en proporciones distintas.
+   * - Para ion-icon se recomienda usar el mismo valor
+   *   en width, height y font-size.
+   *
+   * Esto ayuda a evitar la sensación de "ícono distorsionado"
+   * que comentó la tutora.
+   */
+  --binx-icon-size-xs: 16px;
+  --binx-icon-size-sm: 18px;
+  --binx-icon-size-md: 20px;
+  --binx-icon-size-lg: 24px;
+  --binx-icon-size-xl: 32px;
+  --binx-icon-size-2xl: 40px;
+  --binx-icon-size-3xl: 56px;
+
+  /* =========================================================
+   * 12) FORM TOKENS
+   * ========================================================= */
+
+  --binx-input-bg: #ffffff;
+  --binx-input-text: var(--binx-color-text);
+  --binx-input-placeholder: var(--binx-color-placeholder);
+  --binx-input-border: var(--binx-color-border);
+  --binx-input-border-hover: var(--binx-color-border-strong);
+  --binx-input-border-focus: var(--ion-color-primary);
+  --binx-input-border-error: var(--ion-color-danger);
+  --binx-input-disabled-bg: #f3f4f6;
+  --binx-input-disabled-text: #9ca3af;
+
+  /* =========================================================
+   * 13) CHIP / BADGE TOKENS
+   * ========================================================= */
+
+  --binx-chip-height: 22px;
+  --binx-chip-padding-x: 8px;
+  --binx-chip-font-size: 11px;
+  --binx-chip-font-weight: 600;
+
+  /* =========================================================
+   * 14) MODAL / OVERLAY TOKENS
+   * ========================================================= */
+
+  --binx-overlay-backdrop: rgba(15, 23, 42, 0.36);
+  --binx-modal-bg: #ffffff;
+  --binx-modal-radius: 20px;
+
+  /* =========================================================
+   * 15) IONIC BASE MAPPING
+   * ========================================================= */
+
+  /**
+   * Mapeo de tokens propios a variables Ionic comunes,
+   * para que varios componentes hereden bien.
+   */
+  --ion-background-color: var(--binx-color-bg);
+  --ion-background-color-rgb: var(--binx-color-bg-rgb);
+
+  --ion-text-color: var(--binx-color-text);
+  --ion-text-color-rgb: var(--binx-color-text-rgb);
+
+  --ion-border-color: var(--binx-color-border);
+
+  --ion-item-background: var(--binx-color-surface);
+  --ion-card-background: var(--binx-color-surface);
+  --ion-toolbar-background: var(--binx-color-bg);
+  --ion-tab-bar-background: rgba(255, 255, 255, 0.92);
+
+  /**
+   * Se deja una referencia de grises para componentes Ionic
+   */
+  --ion-color-light: #f8fafc;
+  --ion-color-light-rgb: 248, 250, 252;
+  --ion-color-light-contrast: #111827;
+  --ion-color-light-contrast-rgb: 17, 24, 39;
+  --ion-color-light-shade: #dadcdf;
+  --ion-color-light-tint: #f9fbfc;
+
+  --ion-color-medium: #6b7280;
+  --ion-color-medium-rgb: 107, 114, 128;
+  --ion-color-medium-contrast: #ffffff;
+  --ion-color-medium-contrast-rgb: 255, 255, 255;
+  --ion-color-medium-shade: #5e6471;
+  --ion-color-medium-tint: #7a808d;
+
+  --ion-color-dark: #111827;
+  --ion-color-dark-rgb: 17, 24, 39;
+  --ion-color-dark-contrast: #ffffff;
+  --ion-color-dark-contrast-rgb: 255, 255, 255;
+  --ion-color-dark-shade: #0f1522;
+  --ion-color-dark-tint: #293542;
+}
+
+/* =========================================================
+ * DARK MODE
+ * =========================================================
+ *
+ * Se deja preparado aunque el mockup actual sea claro.
+ * Esto evita deuda técnica futura.
+ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --binx-color-bg: #0f172a;
+    --binx-color-bg-rgb: 15, 23, 42;
+
+    --binx-color-surface: #111827;
+    --binx-color-surface-rgb: 17, 24, 39;
+
+    --binx-color-surface-soft: #172033;
+    --binx-color-surface-soft-rgb: 23, 32, 51;
+
+    --binx-color-surface-muted: #1f2937;
+    --binx-color-surface-muted-rgb: 31, 41, 55;
+
+    --binx-color-border: #334155;
+    --binx-color-border-rgb: 51, 65, 85;
+
+    --binx-color-border-strong: #475569;
+    --binx-color-border-strong-rgb: 71, 85, 105;
+
+    --binx-color-text: #f8fafc;
+    --binx-color-text-rgb: 248, 250, 252;
+
+    --binx-color-text-soft: #d1d5db;
+    --binx-color-text-soft-rgb: 209, 213, 219;
+
+    --binx-color-text-muted: #94a3b8;
+    --binx-color-text-muted-rgb: 148, 163, 184;
+
+    --binx-color-placeholder: #64748b;
+    --binx-color-placeholder-rgb: 100, 116, 139;
+
+    --binx-input-bg: #111827;
+    --binx-input-text: var(--binx-color-text);
+    --binx-input-placeholder: var(--binx-color-placeholder);
+    --binx-input-border: var(--binx-color-border);
+    --binx-input-border-hover: var(--binx-color-border-strong);
+    --binx-input-border-focus: var(--ion-color-primary);
+    --binx-input-border-error: var(--ion-color-danger);
+    --binx-input-disabled-bg: #1f2937;
+    --binx-input-disabled-text: #64748b;
+
+    --ion-background-color: var(--binx-color-bg);
+    --ion-background-color-rgb: var(--binx-color-bg-rgb);
+
+    --ion-text-color: var(--binx-color-text);
+    --ion-text-color-rgb: var(--binx-color-text-rgb);
+
+    --ion-border-color: var(--binx-color-border);
+
+    --ion-item-background: var(--binx-color-surface);
+    --ion-card-background: var(--binx-color-surface);
+    --ion-toolbar-background: var(--binx-color-bg);
+    --ion-tab-bar-background: rgba(17, 24, 39, 0.92);
+
+    --binx-overlay-backdrop: rgba(0, 0, 0, 0.5);
+  }
+}
