@@ -49,6 +49,12 @@
 /* ==========================================================================
    1. Reset global y base tipográfica
    ========================================================================== */
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./assets/fonts/SF-Pro-Display-Regular.otf') format('opentype');
+}
+
 html,
 body {
   width: 100%;

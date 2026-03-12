@@ -142,16 +142,6 @@ export const routes: Routes = [
   },
 
   /*
-    Ruta opcional para desarrollo.
-    Mantener solo si estás usando la Home del starter para pruebas rápidas.
-    Puedes eliminarla cuando /alarms sea tu landing principal.
-  */
-  {
-    path: 'home',
-    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
-  },
-
-  /*
     Ruta de respaldo.
     Cualquier ruta desconocida redirige a Splash.
   */

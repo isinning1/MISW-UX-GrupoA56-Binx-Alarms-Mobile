@@ -38,7 +38,7 @@
   --ion-color-primary-contrast-rgb: 255, 255, 255;
   --ion-color-primary-shade: #0b61df;
   --ion-color-primary-tint: #257dfd;
-
+  --ion-font-family: var(--binx-font-family);
   /**
    * Azul secundario de apoyo:
    * útil para chips suaves, fondos informativos y estados no críticos.
@@ -222,7 +222,7 @@
    * - Inter si está disponible
    * - fallback a system fonts móviles
    */
-  --binx-font-family: "Inter", "SF Pro Display", "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+  --binx-font-family: "SF Pro Display", "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
 
   /**
    * Tamaños base
