@@ -1,16 +1,56 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>BINX</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true">
+  <div class="onboarding-page">
+    <section class="onboarding-brand" aria-label="Identidad BINX">
+      <div class="onboarding-brand__circle" aria-hidden="true"></div>
 
-<ion-content class="ion-padding">
-  <h1>BINX no es otra alarma.</h1>
-  <p>
-    Es un sistema diseñado para ayudarte a atender lo importante, reducir la procrastinación y
-    mantener el control.
-  </p>
+      <div class="onboarding-brand__wordmark" aria-hidden="true">
+        <span class="onboarding-brand__letter onboarding-brand__letter--b">B</span>
+        <span class="onboarding-brand__letter onboarding-brand__letter--i">I</span>
+        <span class="onboarding-brand__letter onboarding-brand__letter--n">N</span>
+        <span class="onboarding-brand__letter onboarding-brand__letter--x">X</span>
+      </div>
 
-  <ion-button expand="block" (click)="onStart()">Empezar</ion-button>
-  <ion-button expand="block" fill="outline" (click)="onSkip()">Omitir</ion-button>
+      <div class="onboarding-brand__bell-wrap" aria-hidden="true">
+        <ion-icon
+          name="notifications-outline"
+          class="onboarding-brand__bell"
+        ></ion-icon>
+      </div>
+    </section>
+
+    <section class="onboarding-copy">
+      <p class="onboarding-copy__text">
+        <strong>BINX</strong> no es “otra alarma”. Es un apoyo para
+        decidir qué hacer cuando suena.
+      </p>
+    </section>
+
+    <section class="onboarding-benefits" aria-label="Beneficios de BINX">
+      <ul class="onboarding-benefits__list">
+        <li class="onboarding-benefits__item">Hacerlo Ahora</li>
+        <li class="onboarding-benefits__item">Postponer con intención</li>
+        <li class="onboarding-benefits__item">Reprogramar con claridad</li>
+      </ul>
+    </section>
+
+    <section class="onboarding-actions">
+      <button
+        type="button"
+        class="onboarding-button onboarding-button--secondary"
+        (click)="onStart()"
+        [disabled]="isNavigating"
+      >
+        Empezar
+      </button>
+
+      <button
+        type="button"
+        class="onboarding-button onboarding-button--primary"
+        (click)="onSkip()"
+        [disabled]="isNavigating"
+      >
+        Omitir
+      </button>
+    </section>
+  </div>
 </ion-content>
