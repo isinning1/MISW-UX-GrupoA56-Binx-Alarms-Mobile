@@ -1,42 +1,70 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonContent, IonIcon } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
+import { addIcons } from 'ionicons';
+import { notificationsOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-splash',
   templateUrl: './splash.page.html',
   styleUrls: ['./splash.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule],
+  imports: [IonContent, IonIcon, CommonModule],
 })
-export class SplashPage implements OnInit {
+export class SplashPage implements OnInit, OnDestroy {
   /*
-    Duración mínima del Splash para que el usuario perciba la validación
-    y para evitar cambios bruscos de pantalla.
+    false  -> solo logo BINX
+    true   -> muestra "Validando Sesion..."
   */
-  private readonly splashDelayMs = 900;
+  showValidationState = false;
 
   /*
-    Ruta de destino cuando no hay sesión activa.
-    En esta primera versión (solo frontend), siempre enviaremos a /login.
+    Tiempos ajustados para que el usuario sí perciba ambas fases.
+    - Primero branding
+    - Luego validación visible
+    - Luego navegación
+  */
+  private readonly showValidationDelayMs = 900;
+  private readonly splashTotalDelayMs = 2600;
+
+  /*
+    Ruta de destino cuando no existe sesión activa.
+    En esta versión inicial, siempre va a login.
   */
   private readonly anonymousNextRoute = '/login';
 
-  constructor(private readonly router: Router) {}
+  private validationTimerId?: number;
+  private navigationTimerId?: number;
+
+  constructor(private readonly router: Router) {
+    addIcons({ notificationsOutline });
+  }
 
   ngOnInit(): void {
     /*
-      Requerimiento funcional (MVP):
-      - Mostrar Splash con “Validando sesión…”
-      - Simular validación de sesión
-      - Redirigir automáticamente
-
-      Nota: cuando implementes persistencia real, aquí se consultará el estado de sesión
-      (por ejemplo, con Capacitor Preferences o un backend) para decidir entre /alarms y /login.
+      Fase 1: mostrar solo branding
+      Fase 2: mostrar validación
+      Fase 3: redirigir
     */
-    window.setTimeout(() => {
-      void this.router.navigateByUrl(this.anonymousNextRoute, { replaceUrl: true });
-    }, this.splashDelayMs);
+    this.validationTimerId = window.setTimeout(() => {
+      this.showValidationState = true;
+    }, this.showValidationDelayMs);
+
+    this.navigationTimerId = window.setTimeout(() => {
+      void this.router.navigateByUrl(this.anonymousNextRoute, {
+        replaceUrl: true,
+      });
+    }, this.splashTotalDelayMs);
+  }
+
+  ngOnDestroy(): void {
+    if (this.validationTimerId !== undefined) {
+      window.clearTimeout(this.validationTimerId);
+    }
+
+    if (this.navigationTimerId !== undefined) {
+      window.clearTimeout(this.navigationTimerId);
+    }
   }
 }

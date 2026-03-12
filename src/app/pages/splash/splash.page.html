@@ -1,13 +1,38 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>splash</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">splash</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="splash-page">
+    <section class="splash-brand" aria-label="Pantalla de inicio BINX">
+      <div class="splash-brand__circle" aria-hidden="true"></div>
+
+      <div class="splash-brand__wordmark" aria-hidden="true">
+        <span class="splash-brand__letter splash-brand__letter--b">B</span>
+        <span class="splash-brand__letter splash-brand__letter--i">I</span>
+        <span class="splash-brand__letter splash-brand__letter--n">N</span>
+        <span class="splash-brand__letter splash-brand__letter--x">X</span>
+      </div>
+
+      <div class="splash-brand__bell-wrap" aria-hidden="true">
+        <ion-icon
+          name="notifications-outline"
+          class="splash-brand__bell"
+        ></ion-icon>
+      </div>
+    </section>
+
+    <section
+      class="splash-status"
+      [class.splash-status--visible]="showValidationState"
+      aria-live="polite"
+      [attr.aria-hidden]="!showValidationState"
+    >
+      <div class="splash-status__dots" aria-hidden="true">
+        <span class="splash-status__dot"></span>
+        <span class="splash-status__dot"></span>
+        <span class="splash-status__dot"></span>
+        <span class="splash-status__dot"></span>
+        <span class="splash-status__dot"></span>
+      </div>
+
+      <p class="splash-status__text">Validando Sesion...</p>
+    </section>
+  </div>
 </ion-content>
