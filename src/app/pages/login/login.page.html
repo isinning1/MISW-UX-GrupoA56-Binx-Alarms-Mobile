@@ -1,40 +1,102 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Iniciar sesión</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true">
+  <div class="login-page">
+    <section class="login-brand" aria-label="Identidad BINX">
+      <div class="login-brand__frame">
+        <div class="login-brand__circle" aria-hidden="true"></div>
 
-<ion-content class="ion-padding">
-  <form (ngSubmit)="onSubmit()">
-    <ion-item lines="none">
-      <ion-input
-        label="Usuario"
-        labelPlacement="stacked"
-        [(ngModel)]="username"
-        name="username"
-        autocomplete="username"
-        required
-      ></ion-input>
-    </ion-item>
+        <div class="login-brand__wordmark" aria-hidden="true">
+          <span class="login-brand__letter login-brand__letter--b">B</span>
+          <span class="login-brand__letter login-brand__letter--i">I</span>
+          <span class="login-brand__letter login-brand__letter--n">N</span>
+          <span class="login-brand__letter login-brand__letter--x">X</span>
+        </div>
 
-    <ion-item lines="none">
-      <ion-input
-        label="Contraseña"
-        labelPlacement="stacked"
-        [(ngModel)]="password"
-        name="password"
-        type="password"
-        autocomplete="current-password"
-        required
-      ></ion-input>
-    </ion-item>
+        <div class="login-brand__bell-wrap" aria-hidden="true">
+          <ion-icon
+            name="notifications-outline"
+            class="login-brand__bell"
+          ></ion-icon>
+        </div>
+      </div>
+    </section>
 
-    <ion-button type="submit" expand="block" [disabled]="!canSubmit">
-      {{ isSubmitting ? 'Ingresando...' : 'Ingresar' }}
-    </ion-button>
+    <section class="login-copy">
+      <p class="login-copy__text">
+        Utiliza tu usuario y contraseña para iniciar
+      </p>
+    </section>
 
-    <ion-button type="button" fill="clear" expand="block">
-      Olvidé mi contraseña
-    </ion-button>
-  </form>
+    <form
+      class="login-form"
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()"
+      novalidate
+    >
+      <div class="login-form__group">
+        <input
+          class="login-input"
+          [class.login-input--error]="shouldShowFieldError(usernameControl)"
+          type="text"
+          formControlName="username"
+          autocomplete="username"
+          placeholder="Usuario"
+          aria-label="Usuario"
+        />
+
+        <p
+          class="login-form__error"
+          *ngIf="shouldShowFieldError(usernameControl)"
+        >
+          {{ usernameErrorMessage }}
+        </p>
+      </div>
+
+      <div class="login-form__group">
+        <input
+          class="login-input"
+          [class.login-input--error]="shouldShowFieldError(passwordControl)"
+          type="password"
+          formControlName="password"
+          autocomplete="current-password"
+          placeholder="Contraseña"
+          aria-label="Contraseña"
+        />
+
+        <p
+          class="login-form__error"
+          *ngIf="shouldShowFieldError(passwordControl)"
+        >
+          {{ passwordErrorMessage }}
+        </p>
+      </div>
+
+      <div
+        class="login-form__auth-error"
+        *ngIf="authErrorMessage"
+        aria-live="polite"
+      >
+        {{ authErrorMessage }}
+      </div>
+
+      <div class="login-form__forgot">
+        <button
+          type="button"
+          class="login-form__forgot-button"
+          (click)="onForgotPassword()"
+        >
+          Olvidé la contraseña
+        </button>
+      </div>
+
+      <div class="login-form__actions">
+        <button
+          type="submit"
+          class="login-submit"
+          [disabled]="!canSubmit"
+        >
+          {{ isSubmitting ? 'Ingresando...' : 'Iniciar Sesion' }}
+        </button>
+      </div>
+    </form>
+  </div>
 </ion-content>
