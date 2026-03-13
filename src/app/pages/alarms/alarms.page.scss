@@ -447,7 +447,7 @@ ion-content.alarms-content {
   }
 }
 
-.bottom-notify-button {
+.bottom-create-button {
   width: 40px;
   height: 40px;
   border: 0;
@@ -463,9 +463,9 @@ ion-content.alarms-content {
   transition: transform 0.16s ease;
 
   ion-icon {
-    width: 1rem;
-    height: 1rem;
-    font-size: 1rem;
+    width: 1.05rem;
+    height: 1.05rem;
+    font-size: 1.05rem;
   }
 
   &:active {

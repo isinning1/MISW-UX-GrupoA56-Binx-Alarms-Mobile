@@ -9,17 +9,18 @@ import {
   ellipsisHorizontal,
   searchOutline,
   micOutline,
-  notificationsOutline,
   trashOutline,
   createOutline,
   warningOutline,
   checkmarkOutline,
   menuOutline,
   notificationsSharp,
+  addOutline,
 } from 'ionicons/icons';
 
 import { Alarm, AlarmStatus } from 'src/app/models/alarm.model';
 import { ALARMS_MOCK } from 'src/app/core/mock/alarms.mock';
+
 @Component({
   selector: 'app-alarms',
   templateUrl: './alarms.page.html',
@@ -38,13 +39,13 @@ export class AlarmsPage {
       ellipsisHorizontal,
       searchOutline,
       micOutline,
-      notificationsOutline,
-      notificationsSharp,
       trashOutline,
       createOutline,
       warningOutline,
       checkmarkOutline,
       menuOutline,
+      notificationsSharp,
+      addOutline,
     });
   }
 
@@ -134,7 +135,7 @@ export class AlarmsPage {
     console.log('Búsqueda por voz');
   }
 
-  onQuickNotifications(): void {
+  onCreateAlarm(): void {
     void this.router.navigateByUrl('/alarm/create');
   }
 
