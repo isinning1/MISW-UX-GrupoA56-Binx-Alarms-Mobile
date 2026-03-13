@@ -1,13 +1,50 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Alarma</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="alarm-ring-content">
+  <div class="alarm-ring-page">
+    <section class="alarm-ring-hero" aria-label="Información de la alarma">
+      <div class="alarm-ring-time-block">
+        <h1 class="alarm-ring-time">{{ alarmTime }}</h1>
+        <p class="alarm-ring-date">{{ alarmDate }}</p>
+      </div>
 
-<ion-content class="ion-padding">
-  <h1>¿Qué vas a hacer ahora?</h1>
+      <div class="alarm-ring-alarm-block">
+        <h2 class="alarm-ring-title">{{ alarmTitle }}</h2>
 
-  <ion-button expand="block" color="success" (click)="onAttend()">Atender</ion-button>
-  <ion-button expand="block" color="danger" (click)="onPostpone()">Posponer</ion-button>
-  <ion-button expand="block" color="warning" (click)="onReprogram()">Reprogramar</ion-button>
+        <span class="alarm-ring-chip">
+          {{ alarmCategory }}
+        </span>
+      </div>
+
+      <div class="alarm-ring-alert" aria-hidden="true">
+        <span class="alarm-ring-alert__mark">!</span>
+      </div>
+
+      <p class="alarm-ring-question">¿Qué vas a hacer ahora?</p>
+    </section>
+
+    <section class="alarm-ring-actions" aria-label="Acciones de la alarma">
+      <button
+        type="button"
+        class="action-button action-button--attend"
+        (click)="onAttend()"
+      >
+        Atender
+      </button>
+
+      <button
+        type="button"
+        class="action-button action-button--postpone"
+        (click)="onPostpone()"
+      >
+        Posponer
+      </button>
+
+      <button
+        type="button"
+        class="action-button action-button--reprogram"
+        (click)="onReprogram()"
+      >
+        Reprogramar
+      </button>
+    </section>
+  </div>
 </ion-content>

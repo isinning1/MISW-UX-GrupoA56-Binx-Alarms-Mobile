@@ -1,35 +1,54 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IonButton, IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonContent } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-alarm-ring',
   templateUrl: './alarm-ring.page.html',
   styleUrls: ['./alarm-ring.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonHeader, IonToolbar, IonTitle, IonContent, IonButton],
+  imports: [CommonModule, IonContent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AlarmRingPage {
-  alarmId: string = '';
+  alarmId = '';
+  alarmTitle = 'Sacar al perro';
+  alarmCategory = 'Casa';
+  alarmTime = '07:42';
+  alarmDate = 'Dom, Feb 08';
 
-  constructor(private readonly route: ActivatedRoute, private readonly router: Router) {
-    /*
-      Se obtiene el id desde la URL para mantener consistencia con el flujo real.
-      Ej: /alarm/2/ring
-    */
+  constructor(
+    private readonly router: Router,
+    private readonly route: ActivatedRoute
+  ) {
     this.alarmId = this.route.snapshot.paramMap.get('id') ?? '';
   }
 
-  async onAttend(): Promise<void> {
-    await this.router.navigateByUrl(`/alarm/${this.alarmId}/status/attended`, { replaceUrl: true });
+  onAttend(): void {
+    if (this.alarmId) {
+      void this.router.navigateByUrl(`/alarm/${this.alarmId}/status/attended`);
+      return;
+    }
+
+    void this.router.navigateByUrl('/alarms');
   }
 
-  async onPostpone(): Promise<void> {
-    await this.router.navigateByUrl(`/alarm/${this.alarmId}/postpone`);
+  onPostpone(): void {
+    if (this.alarmId) {
+      void this.router.navigateByUrl(`/alarm/${this.alarmId}/postpone`);
+      return;
+    }
+
+    void this.router.navigateByUrl('/alarms');
   }
 
-  async onReprogram(): Promise<void> {
-    await this.router.navigateByUrl(`/alarm/${this.alarmId}/reprogram`);
+  onReprogram(): void {
+    if (this.alarmId) {
+      void this.router.navigateByUrl(`/alarm/${this.alarmId}/reprogram`);
+      return;
+    }
+
+    void this.router.navigateByUrl('/alarms');
   }
 }
