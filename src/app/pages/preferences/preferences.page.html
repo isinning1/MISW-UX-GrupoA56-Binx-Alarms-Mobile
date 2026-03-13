@@ -1,13 +1,43 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>preferences</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="preferences-content">
+  <div class="preferences-page">
+    <header class="preferences-header">
+      <button
+        type="button"
+        class="back-button"
+        aria-label="Volver"
+        (click)="onBack()"
+      >
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </button>
+    </header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">preferences</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <section class="preferences-hero">
+      <h1 class="preferences-title">Preferencias</h1>
+    </section>
+
+    <section class="preferences-list" aria-label="Configuración de preferencias">
+      <article
+        *ngFor="let item of preferences; trackBy: trackByPreference"
+        class="preference-row"
+      >
+        <div class="preference-row__content">
+          <h2 class="preference-row__label">{{ item.label }}</h2>
+
+          <p class="preference-row__description" *ngIf="item.description">
+            {{ item.description }}
+          </p>
+        </div>
+
+        <ion-toggle
+          class="preference-toggle"
+          [checked]="item.enabled"
+          [enableOnOffLabels]="false"
+          justify="end"
+          mode="md"
+          (ionChange)="onToggleChange(item.key, !!$event.detail.checked)"
+          [attr.aria-label]="item.label"
+        ></ion-toggle>
+      </article>
+    </section>
+  </div>
 </ion-content>
