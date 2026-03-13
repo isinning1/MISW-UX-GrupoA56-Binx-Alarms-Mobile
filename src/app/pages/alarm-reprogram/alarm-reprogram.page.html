@@ -1,13 +1,156 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>alarm-reprogram</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="alarm-reprogram-content">
+  <div class="alarm-reprogram-page">
+    <form
+      #reprogramForm="ngForm"
+      class="reprogram-form"
+      (ngSubmit)="onSave(reprogramForm)"
+      novalidate
+    >
+      <header class="reprogram-header">
+        <button
+          type="button"
+          class="header-icon-button header-icon-button--ghost"
+          aria-label="Cancelar y volver"
+          (click)="onCancel()"
+        >
+          <ion-icon name="arrow-back-outline"></ion-icon>
+        </button>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">alarm-reprogram</ion-title>
-    </ion-toolbar>
-  </ion-header>
+        <div class="reprogram-header__spacer"></div>
+
+        <button
+          type="submit"
+          class="header-icon-button header-icon-button--primary"
+          aria-label="Guardar reprogramación"
+          [disabled]="isSaving"
+        >
+          <ion-icon name="checkmark-outline"></ion-icon>
+        </button>
+      </header>
+
+      <section class="reprogram-hero">
+        <h1 class="reprogram-title">Reprogramar</h1>
+      </section>
+
+      <section class="time-panel">
+        <label for="reprogram-time" class="time-panel__label">Nueva hora</label>
+
+        <div class="time-panel__display">
+          <div class="time-panel__formatted" aria-hidden="true">
+            {{ formattedTime }}
+          </div>
+
+          <input
+            id="reprogram-time"
+            name="time"
+            type="time"
+            class="time-panel__input"
+            [(ngModel)]="model.time"
+            #timeModel="ngModel"
+            required
+          />
+        </div>
+
+        <p
+          class="form-error form-error--centered"
+          *ngIf="timeModel.invalid && (timeModel.touched || reprogramForm.submitted)"
+        >
+          Selecciona una hora válida.
+        </p>
+      </section>
+
+      <div class="form-field">
+        <label for="reprogram-date" class="form-label">Nueva fecha</label>
+        <input
+          id="reprogram-date"
+          name="date"
+          type="date"
+          class="form-input"
+          [(ngModel)]="model.date"
+          #dateModel="ngModel"
+          required
+        />
+        <p
+          class="form-error"
+          *ngIf="dateModel.invalid && (dateModel.touched || reprogramForm.submitted)"
+        >
+          Selecciona una fecha válida.
+        </p>
+      </div>
+
+      <section class="settings-card">
+        <div class="form-field form-field--row">
+          <label for="reprogram-repeat" class="form-label">Repetir</label>
+          <select
+            id="reprogram-repeat"
+            name="repeat"
+            class="form-select"
+            [(ngModel)]="model.repeat"
+            required
+          >
+            <option
+              *ngFor="let option of repeatOptions; trackBy: trackByValue"
+              [value]="option"
+            >
+              {{ option }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-field form-field--row">
+          <label for="reprogram-reason" class="form-label">Motivo</label>
+          <input
+            id="reprogram-reason"
+            name="reason"
+            type="text"
+            class="form-input form-input--compact"
+            placeholder="Ej. Cambio de rutina"
+            [(ngModel)]="model.reason"
+            #reasonModel="ngModel"
+            required
+            minlength="3"
+            maxlength="80"
+          />
+        </div>
+
+        <p
+          class="form-error form-error--inline"
+          *ngIf="reasonModel.invalid && (reasonModel.touched || reprogramForm.submitted)"
+        >
+          Ingresa un motivo válido.
+        </p>
+
+        <div class="form-field form-field--row">
+          <label for="reprogram-category" class="form-label">Categoría</label>
+          <select
+            id="reprogram-category"
+            name="category"
+            class="form-select"
+            [(ngModel)]="model.category"
+            required
+          >
+            <option
+              *ngFor="let option of categoryOptions; trackBy: trackByValue"
+              [value]="option"
+            >
+              {{ option }}
+            </option>
+          </select>
+        </div>
+
+        <div class="toggle-row">
+          <span class="form-label">Alarma crítica</span>
+
+          <ion-toggle
+            class="critical-toggle"
+            [(ngModel)]="model.critical"
+            name="critical"
+            mode="md"
+            [enableOnOffLabels]="false"
+            aria-label="Alarma crítica"
+          ></ion-toggle>
+        </div>
+      </section>
+    </form>
+  </div>
 </ion-content>
