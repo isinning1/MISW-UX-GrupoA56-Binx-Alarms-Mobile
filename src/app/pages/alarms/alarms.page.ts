@@ -135,7 +135,7 @@ export class AlarmsPage {
   }
 
   onQuickNotifications(): void {
-    console.log('Acceso rápido a notificaciones');
+    void this.router.navigateByUrl('/alarm/create');
   }
 
   onOpenAlarm(alarm: Alarm): void {

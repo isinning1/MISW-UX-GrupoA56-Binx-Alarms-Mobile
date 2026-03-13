@@ -1,0 +1,179 @@
+<ion-content [fullscreen]="true" class="alarm-create-content">
+  <div class="alarm-create-page">
+    <form
+      #createAlarmForm="ngForm"
+      class="create-form"
+      (ngSubmit)="onSave(createAlarmForm)"
+      novalidate
+    >
+      <header class="create-header">
+        <button
+          type="button"
+          class="header-icon-button header-icon-button--ghost"
+          aria-label="Cancelar creación"
+          (click)="onCancel()"
+        >
+          <ion-icon name="arrow-back-outline"></ion-icon>
+        </button>
+
+        <div class="create-header__spacer"></div>
+
+        <button
+          type="submit"
+          class="header-icon-button header-icon-button--primary"
+          aria-label="Guardar alarma"
+          [disabled]="isSaving"
+        >
+          <ion-icon name="checkmark-outline"></ion-icon>
+        </button>
+      </header>
+
+      <section class="create-hero">
+        <h1 class="create-title">Crear Alarma</h1>
+      </section>
+
+      <section class="time-panel">
+        <label for="alarm-time" class="time-panel__label">Hora</label>
+
+        <div class="time-panel__display">
+          <div class="time-panel__formatted" aria-hidden="true">
+            {{ formattedTime }}
+          </div>
+
+          <input
+            id="alarm-time"
+            name="time"
+            type="time"
+            class="time-panel__input"
+            [(ngModel)]="model.time"
+            #timeModel="ngModel"
+            required
+          />
+        </div>
+
+        <p
+          class="form-error form-error--centered"
+          *ngIf="timeModel.invalid && (timeModel.touched || createAlarmForm.submitted)"
+        >
+          Selecciona una hora válida.
+        </p>
+      </section>
+
+      <div class="form-field">
+        <label for="alarm-date" class="form-label">Fecha</label>
+        <input
+          id="alarm-date"
+          name="date"
+          type="date"
+          class="form-input"
+          [(ngModel)]="model.date"
+          #dateModel="ngModel"
+          required
+        />
+        <p
+          class="form-error"
+          *ngIf="dateModel.invalid && (dateModel.touched || createAlarmForm.submitted)"
+        >
+          Selecciona una fecha válida.
+        </p>
+      </div>
+
+      <section class="settings-card">
+        <div class="form-field form-field--row">
+          <label for="alarm-title" class="form-label">Alarma</label>
+          <input
+            id="alarm-title"
+            name="title"
+            type="text"
+            class="form-input form-input--compact"
+            placeholder="Ej. Sacar al perro"
+            [(ngModel)]="model.title"
+            #titleModel="ngModel"
+            required
+            minlength="3"
+            maxlength="80"
+          />
+        </div>
+
+        <p
+          class="form-error form-error--inline"
+          *ngIf="titleModel.invalid && (titleModel.touched || createAlarmForm.submitted)"
+        >
+          Ingresa un nombre válido.
+        </p>
+
+        <div class="form-field form-field--row">
+          <label for="alarm-repeat" class="form-label">Repetir</label>
+          <select
+            id="alarm-repeat"
+            name="repeat"
+            class="form-select"
+            [(ngModel)]="model.repeat"
+            required
+          >
+            <option
+              *ngFor="let option of repeatOptions; trackBy: trackByValue"
+              [value]="option"
+            >
+              {{ option }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-field form-field--row">
+          <label for="alarm-reason" class="form-label">Motivo</label>
+          <input
+            id="alarm-reason"
+            name="reason"
+            type="text"
+            class="form-input form-input--compact"
+            placeholder="Ej. Rutina diaria"
+            [(ngModel)]="model.reason"
+            #reasonModel="ngModel"
+            required
+            minlength="3"
+            maxlength="80"
+          />
+        </div>
+
+        <p
+          class="form-error form-error--inline"
+          *ngIf="reasonModel.invalid && (reasonModel.touched || createAlarmForm.submitted)"
+        >
+          Ingresa un motivo válido.
+        </p>
+
+        <div class="form-field form-field--row">
+          <label for="alarm-category" class="form-label">Categoría</label>
+          <select
+            id="alarm-category"
+            name="category"
+            class="form-select"
+            [(ngModel)]="model.category"
+            required
+          >
+            <option
+              *ngFor="let option of categoryOptions; trackBy: trackByValue"
+              [value]="option"
+            >
+              {{ option }}
+            </option>
+          </select>
+        </div>
+
+        <div class="toggle-row">
+          <span class="form-label">Alarma crítica</span>
+
+          <ion-toggle
+            class="critical-toggle"
+            [(ngModel)]="model.critical"
+            name="critical"
+            mode="md"
+            [enableOnOffLabels]="false"
+            aria-label="Alarma crítica"
+          ></ion-toggle>
+        </div>
+      </section>
+    </form>
+  </div>
+</ion-content>

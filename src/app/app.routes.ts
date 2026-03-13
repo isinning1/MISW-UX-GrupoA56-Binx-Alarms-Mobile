@@ -52,6 +52,14 @@ export const routes: Routes = [
   },
 
   {
+    path: 'alarm/create',
+    loadComponent: () =>
+      import('./pages/alarm-create/alarm-create.page').then(
+        (m) => m.AlarmCreatePage
+      ),
+  },
+
+  {
     path: 'alarm/:id/edit',
     loadComponent: () =>
       import('./pages/alarm-edit/alarm-edit.page').then((m) => m.AlarmEditPage),
