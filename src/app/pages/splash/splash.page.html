@@ -1,38 +1,20 @@
 <ion-content [fullscreen]="true">
-  <div class="splash-page">
-    <section class="splash-brand" aria-label="Pantalla de inicio BINX">
-      <div class="splash-brand__circle" aria-hidden="true"></div>
-
-      <div class="splash-brand__wordmark" aria-hidden="true">
-        <span class="splash-brand__letter splash-brand__letter--b">B</span>
-        <span class="splash-brand__letter splash-brand__letter--i">I</span>
-        <span class="splash-brand__letter splash-brand__letter--n">N</span>
-        <span class="splash-brand__letter splash-brand__letter--x">X</span>
-      </div>
-
-      <div class="splash-brand__bell-wrap" aria-hidden="true">
-        <ion-icon
-          name="notifications-outline"
-          class="splash-brand__bell"
-        ></ion-icon>
-      </div>
-    </section>
-
-    <section
-      class="splash-status"
-      [class.splash-status--visible]="showValidationState"
-      aria-live="polite"
-      [attr.aria-hidden]="!showValidationState"
-    >
-      <div class="splash-status__dots" aria-hidden="true">
-        <span class="splash-status__dot"></span>
-        <span class="splash-status__dot"></span>
-        <span class="splash-status__dot"></span>
-        <span class="splash-status__dot"></span>
-        <span class="splash-status__dot"></span>
-      </div>
-
-      <p class="splash-status__text">Validando Sesion...</p>
-    </section>
-  </div>
+  <ion-grid class="ion-display-flex ion-flex-column ion-align-items-center ion-justify-content-center"
+    style="height: 100%; gap: 3rem;">
+    <ion-row>
+      <ion-img src="assets/Logo.svg" class="animate__animated animate__fadeInUp animate__delay-1s animate__slow"></ion-img>
+    </ion-row>
+    <ion-row>
+      <section class="animate__animated animate__fadeIn animate__delay-3s">
+        <div class="splash-status__dots">
+          <span class="splash-status__dot"></span>
+          <span class="splash-status__dot"></span>
+          <span class="splash-status__dot"></span>
+          <span class="splash-status__dot"></span>
+          <span class="splash-status__dot"></span>
+        </div>
+        <p class="splash-status__text">Validando Sesion...</p>
+      </section>
+    </ion-row>
+  </ion-grid>
 </ion-content>
