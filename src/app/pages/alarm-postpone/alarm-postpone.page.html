@@ -1,13 +1,120 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>alarm-postpone</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="alarm-postpone-content">
+  <div class="alarm-postpone-page">
+    <!-- VISTA 1: Selección 5 / 10 / 15 -->
+    <ng-container *ngIf="view === 'select'">
+      <header class="postpone-header">
+        <button
+          type="button"
+          class="back-button"
+          aria-label="Volver"
+          (click)="onBack()"
+        >
+          <ion-icon name="arrow-back-outline"></ion-icon>
+        </button>
+      </header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">alarm-postpone</ion-title>
-    </ion-toolbar>
-  </ion-header>
+      <section class="postpone-select">
+        <h1 class="postpone-title">Posponer</h1>
+
+        <div class="postpone-options" aria-label="Opciones para posponer">
+          <button
+            *ngFor="let option of postponeOptions; trackBy: trackByMinutes"
+            type="button"
+            class="minute-option"
+            (click)="onSelectMinutes(option.minutes)"
+          >
+            <span class="minute-option__value">{{ option.label }}</span>
+            <span class="minute-option__unit">min</span>
+          </button>
+        </div>
+
+        <button
+          type="button"
+          class="secondary-button secondary-button--ghost"
+          (click)="onCancel()"
+        >
+          Cancelar
+        </button>
+      </section>
+    </ng-container>
+
+    <!-- VISTA 2: Confirmación pospuesta -->
+    <ng-container *ngIf="view === 'result'">
+      <section class="postpone-result">
+        <h1 class="alarm-title">{{ alarmTitle }}</h1>
+
+        <div class="status-stack" aria-hidden="true">
+          <span class="status-stack__alert">!</span>
+
+          <div class="status-stack__hourglass-wrap">
+            <ion-icon
+              name="hourglass-outline"
+              class="status-stack__hourglass"
+            ></ion-icon>
+          </div>
+        </div>
+
+        <p class="result-text">Pospuesta por</p>
+
+        <button
+          type="button"
+          class="minute-option minute-option--static"
+          aria-label="Tiempo pospuesto"
+        >
+          <span class="minute-option__value">{{ selectedMinutes }}</span>
+          <span class="minute-option__unit">min</span>
+        </button>
+
+        <button
+          type="button"
+          class="primary-button"
+          (click)="onBackToAlarms()"
+        >
+          Volver
+        </button>
+      </section>
+    </ng-container>
+
+    <!-- VISTA 3: Límite / alerta -->
+    <ng-container *ngIf="view === 'limit'">
+      <section class="postpone-limit">
+        <h1 class="alarm-title">{{ alarmTitle }}</h1>
+
+        <div class="limit-alert" aria-hidden="true">!</div>
+
+        <p class="limit-description">
+          Has pospuesto esta alarma
+          <span class="limit-description__count">{{ postponeCount }} veces</span>
+        </p>
+
+        <p class="limit-question">¿Qué deseas hacer?</p>
+
+        <div class="limit-actions">
+          <button
+            type="button"
+            class="primary-button"
+            (click)="onDecideAgain()"
+          >
+            Volver a decidir
+          </button>
+
+          <button
+            type="button"
+            class="warning-button"
+            (click)="onReprogram()"
+          >
+            Reprogramar
+          </button>
+
+          <button
+            type="button"
+            class="neutral-button"
+            (click)="onContinueToSelection()"
+          >
+            Continuar
+          </button>
+        </div>
+      </section>
+    </ng-container>
+  </div>
 </ion-content>

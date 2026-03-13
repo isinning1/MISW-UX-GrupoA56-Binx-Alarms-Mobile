@@ -36,7 +36,9 @@ export class AlarmRingPage {
 
   onPostpone(): void {
     if (this.alarmId) {
-      void this.router.navigateByUrl(`/alarm/${this.alarmId}/postpone`);
+      void this.router.navigateByUrl(
+        `/alarm/${this.alarmId}/postpone/limit?count=2`
+      );
       return;
     }
 
