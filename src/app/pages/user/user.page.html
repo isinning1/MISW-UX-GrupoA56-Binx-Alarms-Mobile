@@ -1,13 +1,115 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>user</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="user-content">
+  <div class="user-page">
+    <header class="user-header">
+      <button
+        type="button"
+        class="back-button"
+        aria-label="Volver"
+        (click)="onBack()"
+      >
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </button>
+    </header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">user</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <section class="user-hero">
+      <h1 class="user-title">Usuario</h1>
+
+      <div class="avatar-card" aria-hidden="true">
+        <ion-icon name="person-circle-outline" class="avatar-card__icon"></ion-icon>
+      </div>
+    </section>
+
+    <form #userForm="ngForm" class="user-form" (ngSubmit)="onSubmit(userForm)" novalidate>
+      <div class="form-field">
+        <label for="fullName" class="form-field__label">Nombres y Apellidos</label>
+        <input
+          id="fullName"
+          name="fullName"
+          type="text"
+          class="form-field__input"
+          [(ngModel)]="model.fullName"
+          #fullNameModel="ngModel"
+          required
+          minlength="4"
+          maxlength="120"
+          autocomplete="name"
+          inputmode="text"
+        />
+
+        <p
+          class="form-field__error"
+          *ngIf="fullNameModel.invalid && (fullNameModel.touched || userForm.submitted)"
+        >
+          Ingresa el nombre completo.
+        </p>
+      </div>
+
+      <div class="form-field">
+        <label for="username" class="form-field__label">Usuario</label>
+        <input
+          id="username"
+          name="username"
+          type="text"
+          class="form-field__input"
+          placeholder="Usuario"
+          [(ngModel)]="model.username"
+          #usernameModel="ngModel"
+          required
+          minlength="3"
+          maxlength="40"
+          autocomplete="username"
+          inputmode="text"
+        />
+
+        <p
+          class="form-field__error"
+          *ngIf="usernameModel.invalid && (usernameModel.touched || userForm.submitted)"
+        >
+          Ingresa un usuario válido.
+        </p>
+      </div>
+
+      <div class="form-field">
+        <label for="password" class="form-field__label">Contraseña</label>
+        <input
+          id="password"
+          name="password"
+          [type]="showPassword ? 'text' : 'password'"
+          class="form-field__input"
+          placeholder="Contraseña"
+          [(ngModel)]="model.password"
+          #passwordModel="ngModel"
+          required
+          minlength="6"
+          maxlength="100"
+          autocomplete="current-password"
+        />
+
+        <p
+          class="form-field__error"
+          *ngIf="passwordModel.invalid && (passwordModel.touched || userForm.submitted)"
+        >
+          La contraseña debe tener al menos 6 caracteres.
+        </p>
+      </div>
+
+      <div class="user-actions">
+        <button
+          type="button"
+          class="action-button action-button--secondary"
+          (click)="onBack()"
+        >
+          Volver
+        </button>
+
+        <button
+          type="submit"
+          class="action-button action-button--primary"
+          [disabled]="isSaving"
+        >
+          {{ isSaving ? 'Guardando...' : 'Guardar Cambios' }}
+        </button>
+      </div>
+    </form>
+  </div>
 </ion-content>
