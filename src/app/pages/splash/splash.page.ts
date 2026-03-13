@@ -47,11 +47,11 @@ export class SplashPage implements OnInit, OnDestroy {
       Fase 3: redirigir
     */
    
-    /* this.navigationTimerId = window.setTimeout(() => {
+    this.navigationTimerId = window.setTimeout(() => {
       void this.router.navigateByUrl(this.anonymousNextRoute, {
         replaceUrl: true,
       });
-    }, this.splashTotalDelayMs); */
+    }, this.splashTotalDelayMs);
   }
 
   ngOnDestroy(): void {

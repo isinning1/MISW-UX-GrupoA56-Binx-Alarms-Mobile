@@ -7,7 +7,7 @@ import {
   AbstractControl
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonContent, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonGrid, IonRow, IonImg } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { notificationsOutline } from 'ionicons/icons';
 
@@ -16,7 +16,7 @@ import { notificationsOutline } from 'ionicons/icons';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, IonContent, IonIcon],
+  imports: [IonImg, IonRow, IonGrid, CommonModule, ReactiveFormsModule, IonContent],
 })
 export class LoginPage {
   /*

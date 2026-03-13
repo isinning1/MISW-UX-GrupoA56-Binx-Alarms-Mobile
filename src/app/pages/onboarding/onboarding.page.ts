@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { IonContent, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonGrid, IonRow, IonImg, IonButton } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { notificationsOutline } from 'ionicons/icons';
 
@@ -10,7 +10,7 @@ import { notificationsOutline } from 'ionicons/icons';
   templateUrl: './onboarding.page.html',
   styleUrls: ['./onboarding.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonContent, IonIcon],
+  imports: [IonButton, IonGrid, IonRow, CommonModule, IonContent, IonImg],
 })
 export class OnboardingPage {
   isNavigating = false;
