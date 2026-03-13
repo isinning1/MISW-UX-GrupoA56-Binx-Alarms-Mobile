@@ -1,162 +1,135 @@
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="alarms-content">
   <div class="alarms-page">
     <header class="alarms-header">
       <button
         type="button"
-        class="alarms-header__icon-button alarms-header__icon-button--soft"
+        class="header-icon-button"
+        aria-label="Ir al perfil"
         (click)="onOpenUser()"
-        aria-label="Abrir perfil de usuario"
-        title="Abrir perfil de usuario"
       >
-        <ion-icon name="person-outline" class="alarms-icon alarms-icon--sm"></ion-icon>
+        <ion-icon name="person-circle-outline"></ion-icon>
       </button>
 
-      <h1 class="alarms-header__title">Alarmas</h1>
-
-      <div class="alarms-header__actions">
-        <button
-          type="button"
-          class="alarms-header__icon-button alarms-header__icon-button--soft"
-          (click)="onMoreOptions()"
-          aria-label="Más opciones"
-          title="Más opciones"
-        >
-          <ion-icon
-            name="ellipsis-horizontal"
-            class="alarms-icon alarms-icon--sm"
-          ></ion-icon>
-        </button>
-
-        <div
-          class="alarms-header__menu"
-          *ngIf="isOptionsOpen"
-          aria-label="Menú de opciones"
-        >
-          <button
-            type="button"
-            class="alarms-header__menu-item"
-            (click)="onOpenNotifications()"
-          >
-            Abrir alarma seleccionada
-          </button>
-
-          <button
-            type="button"
-            class="alarms-header__menu-item"
-            (click)="onMoreOptions()"
-          >
-            Cerrar
-          </button>
-        </div>
+      <div class="alarms-header__title-wrap">
+        <h1 class="alarms-header__title">Alarmas</h1>
       </div>
+
+      <button
+        type="button"
+        class="header-icon-button"
+        aria-label="Abrir preferencias"
+        (click)="onOpenMenu()"
+      >
+        <ion-icon name="ellipsis-horizontal"></ion-icon>
+      </button>
     </header>
 
     <section class="alarms-list" aria-label="Listado de alarmas">
-      <article
-        class="alarm-row"
+      <button
         *ngFor="let alarm of filteredAlarms; trackBy: trackByAlarmId"
-        [class.alarm-row--selected]="isSelected(alarm)"
+        type="button"
+        class="alarm-card"
+        (click)="onOpenAlarm(alarm)"
       >
-        <button
-          type="button"
-          class="alarm-row__main"
-          (click)="onOpenAlarm(alarm)"
-          (focus)="onSelectAlarm(alarm)"
-          aria-label="Abrir alarma {{ getAlarmTitle(alarm) }}"
-          title="Abrir alarma {{ getAlarmTitle(alarm) }}"
-        >
-          <div class="alarm-row__icon-wrap">
+        <div class="alarm-card__leading">
+          <div
+            class="leading-icon"
+            [class.leading-icon--pending]="isPending(alarm)"
+            [class.leading-icon--attended]="isAttended(alarm)"
+            aria-hidden="true"
+          >
+            <span *ngIf="isPending(alarm)" class="leading-icon__bang">!</span>
+
             <ion-icon
-              [name]="getAlarmIconName(alarm)"
-              [ngClass]="getAlarmIconClass(alarm)"
+              *ngIf="isAttended(alarm)"
+              name="notifications-sharp"
+              class="leading-icon__bell"
             ></ion-icon>
           </div>
+        </div>
 
-          <div class="alarm-row__content">
-            <div class="alarm-row__top">
-              <div class="alarm-row__title-wrap">
-                <h2 class="alarm-row__title">{{ getAlarmTitle(alarm) }}</h2>
-
-                <div class="alarm-row__meta-left">
-                  <span
-                    class="alarm-category"
-                    [ngClass]="getCategoryClass(alarm.category)"
-                  >
-                    {{ getCategoryLabel(alarm.category) }}
-                  </span>
-                </div>
-              </div>
-
-              <div class="alarm-row__meta-right">
-                <span class="alarm-row__time">{{ alarm.time }}</span>
-                <span class="alarm-row__date">{{ getReadableDateLabel(alarm) }}</span>
-              </div>
-            </div>
-
-            <div class="alarm-row__bottom">
-              <span [ngClass]="getStatusClass(alarm)">
-                <ion-icon
-                  [name]="getStatusIcon(alarm)"
-                  class="alarms-icon alarms-icon--xs"
-                ></ion-icon>
-                {{ getStatusLabel(alarm) }}
-              </span>
-
-              <span
-                class="alarm-row__critical-tag"
-                *ngIf="alarm.critical"
-              >
-                Crítica
-              </span>
-            </div>
+        <div class="alarm-card__content">
+          <div class="alarm-card__top">
+            <h2 class="alarm-card__title">{{ alarm.title }}</h2>
+            <p class="alarm-card__time">{{ formatTime(alarm.time) }}</p>
           </div>
-        </button>
 
-        <div class="alarm-row__actions">
+          <div class="alarm-card__middle">
+            <span class="category-chip">
+              {{ getCategoryLabel(alarm.category) }}
+            </span>
+          </div>
+
+          <div class="alarm-card__bottom">
+            <span
+              class="status-line"
+              [class.status-line--pending]="isPending(alarm)"
+              [class.status-line--attended]="isAttended(alarm)"
+            >
+              <ng-container *ngIf="isPending(alarm)">
+                <ion-icon name="warning-outline" class="status-line__triangle"></ion-icon>
+              </ng-container>
+
+              <ng-container *ngIf="isAttended(alarm)">
+                <span class="status-line__square status-line__square--filled">
+                  <ion-icon name="checkmark-outline" class="status-line__check"></ion-icon>
+                </span>
+              </ng-container>
+
+              <span class="status-line__text">{{ getStatusLabel(alarm.status) }}</span>
+            </span>
+
+            <span class="alarm-card__date">{{ alarm.dateLabel }}</span>
+          </div>
+        </div>
+
+        <div class="alarm-card__actions">
           <button
             type="button"
-            class="alarm-row__action-button alarm-row__action-button--edit"
-            (click)="onEditAlarm(alarm)"
-            (focus)="onSelectAlarm(alarm)"
-            aria-label="Editar alarma {{ getAlarmTitle(alarm) }}"
-            title="Editar alarma {{ getAlarmTitle(alarm) }}"
+            class="action-button action-button--edit"
+            aria-label="Editar alarma"
+            (click)="onEditAlarm(alarm, $event)"
           >
-            <ion-icon name="create-outline" class="alarms-icon alarms-icon--sm"></ion-icon>
+            <ion-icon
+              name="create-outline"
+              class="action-button__icon action-button__icon--edit"
+            ></ion-icon>
           </button>
 
           <button
             type="button"
-            class="alarm-row__action-button alarm-row__action-button--delete"
-            (click)="onDeleteAlarm(alarm)"
-            aria-label="Eliminar alarma {{ getAlarmTitle(alarm) }}"
-            title="Eliminar alarma {{ getAlarmTitle(alarm) }}"
+            class="action-button action-button--delete"
+            aria-label="Eliminar alarma"
+            (click)="onDeleteAlarm(alarm.id, $event)"
           >
-            <ion-icon name="trash-outline" class="alarms-icon alarms-icon--sm"></ion-icon>
+            <ion-icon
+              name="trash-outline"
+              class="action-button__icon action-button__icon--delete"
+            ></ion-icon>
           </button>
         </div>
-      </article>
+      </button>
 
       <div class="alarms-empty" *ngIf="filteredAlarms.length === 0">
-        <p class="alarms-empty__text">No se encontraron alarmas.</p>
+        <p class="alarms-empty__title">No se encontraron alarmas</p>
+        <p class="alarms-empty__text">Intenta con otro término de búsqueda.</p>
       </div>
     </section>
 
-    <footer class="alarms-bottom-bar" aria-label="Barra inferior">
+    <footer class="alarms-bottom-bar">
       <button
         type="button"
-        class="alarms-bottom-bar__menu-button"
+        class="bottom-mini-button"
+        aria-label="Menú"
         (click)="onOpenMenu()"
-        aria-label="Abrir menú"
-        title="Abrir menú"
       >
-        <ion-icon name="menu-outline" class="alarms-icon alarms-icon--sm"></ion-icon>
+        <ion-icon name="menu-outline"></ion-icon>
       </button>
 
-      <label class="alarms-search" aria-label="Buscar alarma">
-        <ion-icon name="search-outline" class="alarms-icon alarms-icon--sm"></ion-icon>
+      <label class="search-shell" aria-label="Buscar alarma">
+        <ion-icon name="search-outline" class="search-shell__icon"></ion-icon>
 
         <input
-          class="alarms-search__input"
           type="text"
           [(ngModel)]="searchTerm"
           placeholder="Buscar alarma..."
@@ -165,26 +138,21 @@
 
         <button
           type="button"
-          class="alarms-search__voice-button"
-          (click)="onVoiceSearch()"
+          class="search-shell__voice"
           aria-label="Buscar por voz"
-          title="Buscar por voz"
+          (click)="onSearchVoice()"
         >
-          <ion-icon name="mic-outline" class="alarms-icon alarms-icon--sm"></ion-icon>
+          <ion-icon name="mic-outline"></ion-icon>
         </button>
       </label>
 
       <button
         type="button"
-        class="alarms-bottom-bar__alert-button"
-        (click)="onOpenNotifications()"
-        aria-label="Ver alarma seleccionada"
-        title="Ver alarma seleccionada"
+        class="bottom-notify-button"
+        aria-label="Notificaciones"
+        (click)="onQuickNotifications()"
       >
-        <ion-icon
-          name="notifications-outline"
-          class="alarms-icon alarms-icon--sm"
-        ></ion-icon>
+        <ion-icon name="notifications-outline"></ion-icon>
       </button>
     </footer>
   </div>
