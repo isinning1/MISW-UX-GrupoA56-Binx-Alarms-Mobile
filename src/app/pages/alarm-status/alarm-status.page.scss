@@ -1,0 +1,167 @@
+:host {
+  --page-top-start: #c8f1d8;
+  --page-top-end: #b7eacb;
+  --page-bottom-start: #f6f7f9;
+  --page-bottom-end: #eef1f5;
+
+  --text-primary: #151515;
+  --text-secondary: #232323;
+
+  --success-main: #00c95c;
+  --success-deep: #00b454;
+
+  --button-main: #168cff;
+  --button-deep: #0f78e2;
+  --button-text: #ffffff;
+
+  --shadow-button: 0 12px 26px rgba(22, 140, 255, 0.18);
+}
+
+ion-content.alarm-status-content {
+  --background: linear-gradient(
+    180deg,
+    var(--page-top-start) 0%,
+    var(--page-top-end) 34%,
+    var(--page-bottom-start) 70%,
+    var(--page-bottom-end) 100%
+  );
+}
+
+.alarm-status-page {
+  min-height: 100%;
+  box-sizing: border-box;
+  padding: max(24px, env(safe-area-inset-top)) 24px
+    calc(26px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.alarm-status-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  text-align: center;
+}
+
+.alarm-status-title {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.12rem;
+  line-height: 1.22;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  text-align: center;
+}
+
+.alarm-status-visual {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+}
+
+.alarm-status-icon {
+  width: clamp(5.8rem, 18vw, 7.4rem);
+  height: clamp(5.8rem, 18vw, 7.4rem);
+  font-size: clamp(5.8rem, 18vw, 7.4rem);
+  color: var(--success-main);
+  filter: drop-shadow(0 8px 16px rgba(0, 201, 92, 0.12));
+}
+
+.alarm-status-message {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: clamp(1.8rem, 6vw, 2.2rem);
+  line-height: 1.06;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  text-align: center;
+}
+
+.alarm-status-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.alarm-status-button {
+  width: min(100%, 240px);
+  min-height: 48px;
+  border: 0;
+  border-radius: 14px;
+  padding: 0 18px;
+  background: linear-gradient(180deg, #2795ff 0%, var(--button-main) 100%);
+  color: var(--button-text);
+  font-size: 0.86rem;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  box-shadow: var(--shadow-button);
+  cursor: pointer;
+  transition:
+    transform 0.16s ease,
+    filter 0.16s ease,
+    background 0.16s ease;
+
+  &:active {
+    transform: scale(0.985);
+    background: linear-gradient(180deg, #168cff 0%, var(--button-deep) 100%);
+  }
+}
+
+@media (max-width: 360px) {
+  .alarm-status-page {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .alarm-status-main {
+    gap: 24px;
+  }
+
+  .alarm-status-title {
+    font-size: 1.02rem;
+  }
+
+  .alarm-status-visual {
+    min-height: 150px;
+  }
+
+  .alarm-status-icon {
+    width: 5.2rem;
+    height: 5.2rem;
+    font-size: 5.2rem;
+  }
+
+  .alarm-status-message {
+    font-size: 1.6rem;
+  }
+}
+
+@media (min-width: 480px) {
+  .alarm-status-page {
+    max-width: 430px;
+    margin: 0 auto;
+  }
+
+  .alarm-status-main {
+    gap: 30px;
+  }
+
+  .alarm-status-visual {
+    min-height: 200px;
+  }
+
+  .alarm-status-icon {
+    width: 7.6rem;
+    height: 7.6rem;
+    font-size: 7.6rem;
+  }
+}

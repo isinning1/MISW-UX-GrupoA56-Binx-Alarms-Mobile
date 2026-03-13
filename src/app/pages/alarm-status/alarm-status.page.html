@@ -1,13 +1,26 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>alarm-status</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="alarm-status-content">
+  <div class="alarm-status-page">
+    <section class="alarm-status-main" aria-label="Estado de la alarma">
+      <p class="alarm-status-title">{{ alarmTitle }}</p>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">alarm-status</ion-title>
-    </ion-toolbar>
-  </ion-header>
+      <div class="alarm-status-visual" aria-hidden="true">
+        <ion-icon
+          name="checkmark-outline"
+          class="alarm-status-icon"
+        ></ion-icon>
+      </div>
+
+      <h1 class="alarm-status-message">{{ statusMessage }}</h1>
+    </section>
+
+    <section class="alarm-status-footer">
+      <button
+        type="button"
+        class="alarm-status-button"
+        (click)="onContinue()"
+      >
+        Volver a alarmas
+      </button>
+    </section>
+  </div>
 </ion-content>
