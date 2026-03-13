@@ -1,6 +1,32 @@
 <ion-content [fullscreen]="true">
-  <div class="onboarding-page">
-    <section class="onboarding-brand" aria-label="Identidad BINX">
+<ion-grid class="ion-display-flex ion-flex-column ion-align-items-center ion-justify-content-center ion-padding" style="height: 100%;">
+   
+    <ion-row>
+      <ion-img src="assets/Logo.svg" ></ion-img>
+    </ion-row>
+
+    <ion-row class="ion-text-center" style="margin-top: 1rem;" >
+        <p><strong>BINX</strong> no es “otra alarma”. Es un apoyo para decidir qué hacer cuando suena.
+        </p>
+    </ion-row>
+
+    <ion-row style="width: 100%;align-content: center;justify-content: center;">
+      <ul style="line-height: 2rem;">
+        <li>Hacerlo Ahora</li>
+        <li>Postponer con intención</li>
+        <li>Reprogramar con claridad</li>
+      </ul>
+    </ion-row>
+
+    <ion-row class="ion-display-flex ion-flex-row" style="width: 100%; justify-content: space-evenly; margin-top: 2rem;">
+      <ion-button color="medium" (click)="onStart()">Empezar</ion-button>
+      <ion-button color="primary" (click)="onSkip()">Omitir</ion-button>
+    </ion-row>
+</ion-grid>
+
+  <!-- <div class="onboarding-page ion-justify-content-center">
+    
+    <section class="xonboarding-brand" aria-label="Identidad BINX">
       <div class="onboarding-brand__circle" aria-hidden="true"></div>
 
       <div class="onboarding-brand__wordmark" aria-hidden="true">
@@ -18,14 +44,14 @@
       </div>
     </section>
 
-    <section class="onboarding-copy">
+    <section class="xonboarding-copy">
       <p class="onboarding-copy__text">
         <strong>BINX</strong> no es “otra alarma”. Es un apoyo para
         decidir qué hacer cuando suena.
       </p>
     </section>
 
-    <section class="onboarding-benefits" aria-label="Beneficios de BINX">
+    <section class="xonboarding-benefits" aria-label="Beneficios de BINX">
       <ul class="onboarding-benefits__list">
         <li class="onboarding-benefits__item">Hacerlo Ahora</li>
         <li class="onboarding-benefits__item">Postponer con intención</li>
@@ -33,7 +59,7 @@
       </ul>
     </section>
 
-    <section class="onboarding-actions">
+    <section class="xonboarding-actions">
       <button
         type="button"
         class="onboarding-button onboarding-button--secondary"
@@ -52,5 +78,5 @@
         Omitir
       </button>
     </section>
-  </div>
+  </div> -->
 </ion-content>

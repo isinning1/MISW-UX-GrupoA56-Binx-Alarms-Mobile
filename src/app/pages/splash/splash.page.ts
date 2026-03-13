@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonContent, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonImg, IonRow, IonGrid } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { notificationsOutline } from 'ionicons/icons';
@@ -10,7 +10,7 @@ import { notificationsOutline } from 'ionicons/icons';
   templateUrl: './splash.page.html',
   styleUrls: ['./splash.page.scss'],
   standalone: true,
-  imports: [IonContent, IonIcon, CommonModule],
+  imports: [IonGrid, IonRow, IonContent, IonImg, CommonModule],
 })
 export class SplashPage implements OnInit, OnDestroy {
   /*
@@ -25,8 +25,7 @@ export class SplashPage implements OnInit, OnDestroy {
     - Luego validación visible
     - Luego navegación
   */
-  private readonly showValidationDelayMs = 900;
-  private readonly splashTotalDelayMs = 2600;
+  private readonly splashTotalDelayMs = 6000;
 
   /*
     Ruta de destino cuando no existe sesión activa.
@@ -47,10 +46,7 @@ export class SplashPage implements OnInit, OnDestroy {
       Fase 2: mostrar validación
       Fase 3: redirigir
     */
-    this.validationTimerId = window.setTimeout(() => {
-      this.showValidationState = true;
-    }, this.showValidationDelayMs);
-
+   
     this.navigationTimerId = window.setTimeout(() => {
       void this.router.navigateByUrl(this.anonymousNextRoute, {
         replaceUrl: true,

@@ -1,5 +1,92 @@
 <ion-content [fullscreen]="true">
-  <div class="login-page ion-justify-content-center">
+
+  <ion-grid class="ion-display-flex ion-flex-column ion-align-items-center ion-justify-content-center ion-padding" style="height: 100%;">
+    <ion-row>
+      <ion-img src="assets/Logo.svg"></ion-img>
+    </ion-row>
+
+    <ion-row class="ion-text-center">
+      <p style="font-size: 16pt; font-weight: 700;">Utiliza tu usuario y contraseña para iniciar</p>
+    </ion-row>
+
+    <ion-row style="width: 100%;" class="ion-display-flex ion-flex-column">
+            <form
+      class="login-form"
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()"
+      novalidate
+    >
+      <div class="login-form__group">
+        <input
+          class="login-input"
+          [class.login-input--error]="shouldShowFieldError(usernameControl)"
+          type="text"
+          formControlName="username"
+          autocomplete="username"
+          placeholder="Usuario"
+          aria-label="Usuario"
+        />
+
+        <p
+          class="login-form__error"
+          *ngIf="shouldShowFieldError(usernameControl)"
+        >
+          {{ usernameErrorMessage }}
+        </p>
+      </div>
+
+      <div class="login-form__group">
+        <input
+          class="login-input"
+          [class.login-input--error]="shouldShowFieldError(passwordControl)"
+          type="password"
+          formControlName="password"
+          autocomplete="current-password"
+          placeholder="Contraseña"
+          aria-label="Contraseña"
+        />
+
+        <p
+          class="login-form__error"
+          *ngIf="shouldShowFieldError(passwordControl)"
+        >
+          {{ passwordErrorMessage }}
+        </p>
+      </div>
+
+      <div
+        class="login-form__auth-error"
+        *ngIf="authErrorMessage"
+        aria-live="polite"
+      >
+        {{ authErrorMessage }}
+      </div>
+
+      <div class="login-form__forgot">
+        <button
+          type="button"
+          class="login-form__forgot-button"
+          (click)="onForgotPassword()"
+        >
+          Olvidé la contraseña
+        </button>
+      </div>
+
+      <div class="login-form__actions">
+        <button
+          type="submit"
+          class="login-submit"
+          [disabled]="!canSubmit"
+        >
+          {{ isSubmitting ? 'Ingresando...' : 'Iniciar Sesion' }}
+        </button>
+      </div>
+    </form>
+    </ion-row>
+  </ion-grid>
+
+
+  <!-- <div class="login-page ion-justify-content-center">
     <section class="login-brand" aria-label="Identidad BINX">
       <div class="login-brand__frame">
         <div class="login-brand__circle" aria-hidden="true"></div>
@@ -98,5 +185,5 @@
         </button>
       </div>
     </form>
-  </div>
+  </div> -->
 </ion-content>
